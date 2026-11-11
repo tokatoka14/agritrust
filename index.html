@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgriTrust — ფერმერული პროდუქციის მარკეტი</title>
+<meta name="description" content="იყიდე ქართული ფერმერული პროდუქცია პირდაპირ მწარმოებლისგან. ლაბორატორიით შემოწმებული ხარისხი, მიწოდება მთელ საქართველოში.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'ALK Katerina';src:url('fonts/alk-katerina.woff2') format('woff2');font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+@font-face{font-family:'BPG Nino';src:url('fonts/bpg-nino-medium.woff2') format('woff2');font-display:swap}
+:root{
+  --bg:#f3f4f2; --white:#fff; --ink:#1c211d; --ink-2:#4b524c; --muted:#868d87; --line:#e4e7e3; --line-2:#d5d9d4;
+  --green:#18803f; --green-d:#116331; --green-l:#e7f4ec; --orange:#f26b1d; --orange-l:#fff0e6; --red:#d93a2b; --gold:#f2b01e;
+  --display:'ALK Katerina','Noto Sans Georgian',sans-serif;
+  --text:'BPG Nino','Noto Sans Georgian',Inter,sans-serif;
+  --r:12px;
+}
+html[lang=en]{--display:Inter,sans-serif;--text:Inter,'Noto Sans Georgian',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+.wrap{max-width:1320px;margin:0 auto;padding:0 20px}
+.num{font-family:Inter,sans-serif;font-variant-numeric:tabular-nums}
+svg{flex:none}
+
+/* top bar */
+.topbar{background:var(--ink);color:#c9cec9;font-size:13px}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:36px}
+.topbar a:hover{color:#fff}
+.topbar .sp{margin-left:auto}
+.lang{display:flex;gap:2px}
+.lang button{padding:3px 8px;border-radius:5px;font-size:12.5px;font-family:Inter,sans-serif;font-weight:500;color:#9aa19b}
+.lang button.on{background:#fff;color:var(--ink)}
+
+/* header */
+header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.hdr{display:flex;align-items:center;gap:18px;height:76px}
+.logo{display:flex;align-items:center;gap:10px;font-family:Inter,sans-serif}
+.logo-m{width:38px;height:38px;border-radius:10px;background:var(--green);display:grid;place-items:center}
+.logo b{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.logo b i{font-style:normal;color:var(--green)}
+.cat-btn{display:flex;align-items:center;gap:8px;height:46px;padding:0 16px;border-radius:10px;background:var(--green-l);color:var(--green-d);font-weight:600;font-size:14.5px}
+.cat-btn:hover{background:#d8eee1}
+.search{flex:1;display:flex;height:46px;border:2px solid var(--green);border-radius:10px;overflow:hidden;background:#fff}
+.search select{border:0;background:#f6f7f5;padding:0 12px;font-size:14px;color:var(--ink-2);outline:none;border-right:1px solid var(--line);max-width:170px}
+.search input{flex:1;border:0;padding:0 14px;font-size:15px;outline:none;min-width:0}
+.search button{background:var(--green);color:#fff;padding:0 22px;display:flex;align-items:center;gap:8px;font-weight:600}
+.search button:hover{background:var(--green-d)}
+.h-icons{display:flex;align-items:center;gap:4px}
+.h-ic{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;border-radius:10px;font-size:12px;color:var(--ink-2)}
+.h-ic:hover{background:#f3f4f2;color:var(--ink)}
+.h-ic .b{position:absolute;top:2px;right:8px;min-width:18px;height:18px;border-radius:99px;background:var(--orange);color:#fff;font-size:11px;font-weight:600;display:none;place-items:center;padding:0 5px;font-family:Inter,sans-serif}
+.h-ic .b.on{display:grid}
+.add-btn{height:46px;padding:0 18px;border-radius:10px;background:var(--orange);color:#fff;font-weight:600;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.add-btn:hover{background:#dc5c12}
+
+/* categories */
+.cats{background:var(--white);border-bottom:1px solid var(--line)}
+.cats .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 20px;scrollbar-width:none}
+.cats .wrap::-webkit-scrollbar{display:none}
+.cat{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px;padding:10px 6px;border-radius:12px;font-size:13px;color:var(--ink-2);text-align:center;line-height:1.25;transition:.15s}
+.cat:hover{background:#f3f4f2;color:var(--ink)}
+.cat.on{background:var(--green-l);color:var(--green-d);font-weight:600}
+.cat .e{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:27px;background:#f3f4f2}
+.cat.on .e{background:#fff;box-shadow:0 0 0 2px var(--green)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 340px;gap:16px;margin:18px 0}
+.slider{position:relative;border-radius:16px;overflow:hidden;min-height:320px;background:#1f5e37}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;padding:40px 48px;color:#fff;opacity:0;transition:opacity .5s;pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide .tag{display:inline-block;background:rgba(255,255,255,.16);border-radius:99px;padding:4px 12px;font-size:13px;margin-bottom:16px}
+.slide h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,3.4vw,46px);line-height:1.05;margin-bottom:14px}
+html[lang=en] .slide h2{font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.slide p{opacity:.88;max-width:420px;margin-bottom:22px}
+.slide .go{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--ink);height:44px;padding:0 20px;border-radius:10px;font-weight:600}
+.slide .art{font-size:150px;text-align:center;line-height:1;filter:drop-shadow(0 18px 30px rgba(0,0,0,.25))}
+.slide .art img{width:100%;max-width:330px;aspect-ratio:1;object-fit:cover;border-radius:22px;border:4px solid rgba(255,255,255,.25);display:block;margin-left:auto}
+.dots{position:absolute;left:48px;bottom:22px;display:flex;gap:6px;z-index:2}
+.dots button{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.45);transition:.2s}
+.dots button.on{width:24px;background:#fff}
+.side-promos{display:grid;gap:16px}
+.promo{border-radius:16px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;min-height:152px}
+.promo b{font-size:17px;display:block;margin-bottom:4px;max-width:200px}
+.promo span{font-size:13.5px;color:var(--ink-2);max-width:200px;display:block}
+.promo a{font-weight:600;font-size:14px;margin-top:12px}
+.promo .em{position:absolute;right:14px;bottom:8px;font-size:64px}
+.promo.a{background:var(--orange-l)}.promo.a a{color:var(--orange)}
+.promo.b{background:#e8f1fb}.promo.b a{color:#1f63b4}
+
+/* trust strip */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.trust div{background:var(--white);border-radius:var(--r);padding:16px 18px;display:flex;gap:12px;align-items:center;border:1px solid var(--line)}
+.trust .ti{width:40px;height:40px;border-radius:10px;background:var(--green-l);color:var(--green);display:grid;place-items:center}
+.trust b{display:block;font-size:14.5px}
+.trust span{font-size:13px;color:var(--muted)}
+
+/* section heads */
+.sh{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 14px}
+.sh h3{font-size:21px;font-weight:600;display:flex;align-items:center;gap:10px}
+.sh h3 .pill{font-size:12px;background:var(--orange);color:#fff;padding:3px 9px;border-radius:99px;font-weight:600}
+.sh a{color:var(--green);font-weight:600;font-size:14px}
+
+/* product card */
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s,transform .15s;cursor:pointer;position:relative}
+.card:hover{box-shadow:0 10px 28px -14px rgba(28,33,29,.35);transform:translateY(-2px)}
+.thumb{aspect-ratio:1/0.82;position:relative;display:grid;place-items:center;overflow:hidden}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.thumb .fb{font-size:76px;line-height:1}
+.badges{position:absolute;left:10px;top:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-start;z-index:1}
+.bd{font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:6px;line-height:1.3}
+.bd.sale{background:var(--red);color:#fff;font-family:Inter,sans-serif}
+.bd.lab{background:#fff;color:var(--green-d);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.bd.org{background:var(--green);color:#fff}
+.bd.vip{background:var(--gold);color:#3b2a00}
+.fav{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--ink-2);box-shadow:0 1px 3px rgba(0,0,0,.1);z-index:1}
+.fav:hover{color:var(--red)}
+.fav.on{color:var(--red)}.fav.on svg{fill:var(--red)}
+.cb{padding:12px 14px 14px;display:flex;flex-direction:column;flex:1}
+.price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.price b{font-family:Inter,sans-serif;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.price small{color:var(--muted);font-size:12.5px}
+.price s{color:var(--muted);font-size:13px;font-family:Inter,sans-serif}
+.ttl{font-size:14.5px;margin:4px 0 6px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:39px}
+.loc{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:4px}
+.seller{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line);margin-top:10px;font-size:12.5px;color:var(--ink-2)}
+.seller .st{color:var(--gold);font-family:Inter,sans-serif;font-weight:600;white-space:nowrap}
+.seller .st em{color:var(--ink-2);font-style:normal;font-weight:500}
+.buy{margin-top:10px;height:38px;border-radius:9px;background:var(--green-l);color:var(--green-d);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.buy:hover{background:var(--green);color:#fff}
+.buy.done{background:var(--green);color:#fff}
+
+/* catalogue */
+.catalog{display:grid;grid-template-columns:260px 1fr;gap:18px;margin:36px 0}
+.filters{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:6px 18px 18px;align-self:start;position:sticky;top:96px}
+.fg{padding:14px 0;border-bottom:1px solid var(--line)}
+.fg:last-of-type{border-bottom:0}
+.fg h4{font-size:14px;font-weight:600;margin-bottom:10px}
+.ck{display:flex;align-items:center;gap:9px;font-size:14px;color:var(--ink-2);padding:4px 0;cursor:pointer}
+.ck input{width:17px;height:17px;accent-color:var(--green)}
+.ck .c{margin-left:auto;color:var(--muted);font-size:12.5px;font-family:Inter,sans-serif}
+.range{display:flex;gap:8px;align-items:center}
+.range input{width:100%;height:38px;border:1px solid var(--line-2);border-radius:8px;padding:0 10px;font-size:14px;font-family:Inter,sans-serif}
+.range input:focus{outline:none;border-color:var(--green)}
+.switch{display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--ink-2);padding:5px 0;cursor:pointer}
+.switch input{appearance:none;width:38px;height:22px;border-radius:99px;background:var(--line-2);position:relative;cursor:pointer;transition:.15s}
+.switch input:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.15s}
+.switch input:checked{background:var(--green)}.switch input:checked:after{left:19px}
+.reset{width:100%;height:40px;border:1px solid var(--line-2);border-radius:9px;font-size:14px;margin-top:14px;color:var(--ink-2)}
+.reset:hover{border-color:var(--ink);color:var(--ink)}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;margin-bottom:14px;flex-wrap:wrap}
+.toolbar .cnt{font-size:14px;color:var(--ink-2)}
+.toolbar .cnt b{color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12.5px;background:var(--green-l);color:var(--green-d);padding:4px 10px;border-radius:99px;display:flex;align-items:center;gap:5px}
+.chip button{color:var(--green-d);font-size:14px;line-height:1}
+.sort{height:38px;border:1px solid var(--line-2);border-radius:9px;padding:0 10px;font-size:14px;background:#fff}
+.catalog .grid{grid-template-columns:repeat(4,1fr)}
+.empty{grid-column:1/-1;background:var(--white);border:1px dashed var(--line-2);border-radius:var(--r);padding:48px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
+.filter-toggle{display:none}
+
+/* sellers */
+.sellers{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:36px}
+.sl{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:18px 14px;text-align:center;transition:.15s;cursor:pointer}
+.sl:hover{border-color:var(--green)}
+.av{width:64px;height:64px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;font-weight:700;font-size:20px;font-family:Inter,'Noto Sans Georgian',sans-serif;position:relative}
+.av:after{content:"✓";position:absolute;right:-2px;bottom:0;width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;font-size:11px;display:grid;place-items:center;border:2px solid #fff}
+.sl b{display:block;font-size:14.5px;line-height:1.3}
+.sl .r{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+.sl .m{display:flex;justify-content:center;gap:10px;font-size:12.5px;color:var(--ink-2)}
+.sl .m .st{color:var(--gold);font-weight:600;font-family:Inter,sans-serif}
+
+/* sell banner */
+.sell{background:var(--ink);color:#fff;border-radius:16px;padding:34px 40px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-bottom:40px;position:relative;overflow:hidden}
+.sell h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,2.6vw,34px);line-height:1.1;margin-bottom:8px}
+html[lang=en] .sell h3{font-weight:700;letter-spacing:-.02em}
+.sell p{color:#b9bfba;max-width:560px}
+.sell ul{list-style:none;display:flex;gap:22px;margin-top:14px;flex-wrap:wrap;font-size:14px;color:#dfe3df}
+.sell li:before{content:"✓ ";color:#6fd394}
+.sell .add-btn{height:50px;padding:0 24px}
+
+footer{background:var(--white);border-top:1px solid var(--line);padding:40px 0 24px;font-size:14px;color:var(--ink-2)}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1.3fr;gap:30px}
+.ft h5{font-size:14.5px;color:var(--ink);margin-bottom:12px;font-weight:600}
+.ft ul{list-style:none;display:grid;gap:8px}
+.ft a:hover{color:var(--green)}
+.ft .pay{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.ft .pay span{border:1px solid var(--line-2);border-radius:6px;padding:4px 9px;font-size:12px;font-family:Inter,sans-serif;font-weight:600;color:var(--ink-2)}
+.fb-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+/* drawer */
+.shade{position:fixed;inset:0;background:rgba(20,24,21,.45);opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.shade.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--white);z-index:61;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dh b{font-size:18px}
+.x{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--ink-2)}
+.x:hover{background:#f3f4f2}
+.items{flex:1;overflow-y:auto;padding:8px 20px}
+.it{display:grid;grid-template-columns:60px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.it .im{width:60px;height:60px;border-radius:10px;display:grid;place-items:center;font-size:32px;overflow:hidden;position:relative}
+.it .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.it b{font-size:14px;display:block;line-height:1.3}
+.it small{color:var(--muted);font-size:12.5px}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line-2);border-radius:8px;margin-top:6px;font-family:Inter,sans-serif;font-size:13.5px}
+.qty button{width:28px;height:28px;color:var(--ink-2)}
+.qty button:hover{color:var(--ink)}
+.qty span{min-width:30px;text-align:center}
+.it .sum{font-family:Inter,sans-serif;font-weight:600;text-align:right}
+.it .rm{display:block;font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--text)}
+.it .rm:hover{color:var(--red)}
+.df{border-top:1px solid var(--line);padding:18px 20px}
+.df .ln{display:flex;justify-content:space-between;font-size:14px;color:var(--ink-2);margin-bottom:6px}
+.df .tot{display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 14px}
+.df .tot b{font-family:Inter,sans-serif;font-size:24px}
+.primary{width:100%;height:48px;border-radius:10px;background:var(--green);color:#fff;font-weight:600;font-size:15px}
+.primary:hover{background:var(--green-d)}
+.d-empty{text-align:center;color:var(--muted);padding:60px 20px}
+.d-empty div{font-size:48px;margin-bottom:10px}
+
+/* modal */
+.modal{position:fixed;inset:0;display:none;place-items:center;padding:16px;z-index:62}
+.modal.on{display:grid}
+.mbox{background:var(--white);border-radius:16px;width:100%;max-width:820px;max-height:92vh;overflow:auto;position:relative}
+.mbox .x{position:absolute;right:12px;top:12px;background:#fff;z-index:2}
+.qv{display:grid;grid-template-columns:1fr 1fr}
+.qv .thumb{aspect-ratio:auto;min-height:380px}
+.qv .thumb .fb{font-size:150px}
+.qv .info{padding:30px 28px}
+.qv h3{font-size:23px;line-height:1.25;margin:10px 0 6px}
+.qv .price b{font-size:28px}
+.qv dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px;margin:18px 0;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.qv dt{color:var(--muted)}
+.qv .row{display:flex;gap:10px;align-items:center}
+.qv .qty{margin:0;height:48px}.qv .qty button{width:40px;height:46px}.qv .qty span{min-width:44px}
+.form{padding:30px 28px;max-width:520px}
+.form h3{font-size:22px;margin-bottom:4px}
+.form p{color:var(--muted);font-size:14px;margin-bottom:8px}
+.form label{display:block;font-size:13.5px;color:var(--ink-2);margin:14px 0 6px}
+.form input,.form select{width:100%;height:44px;border:1px solid var(--line-2);border-radius:9px;padding:0 12px;font-size:15px;background:#fff}
+.form input:focus,.form select:focus{outline:none;border-color:var(--green)}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form .primary{margin-top:22px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;font-size:14.5px;z-index:70;transition:transform .25s;display:flex;gap:10px;align-items:center}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:1200px){.grid{grid-template-columns:repeat(4,1fr)}.catalog .grid{grid-template-columns:repeat(3,1fr)}.sellers{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr}.side-promos{grid-template-columns:1fr 1fr}
+  .trust{grid-template-columns:1fr 1fr}
+  .catalog{grid-template-columns:1fr}
+  .filters{position:fixed;left:0;top:0;bottom:0;width:300px;z-index:61;border-radius:0;overflow-y:auto;transform:translateX(-100%);transition:transform .25s}
+  .filters.on{transform:none}
+  .filter-toggle{display:flex;align-items:center;gap:6px;height:38px;padding:0 12px;border:1px solid var(--line-2);border-radius:9px;font-size:14px}
+  .grid,.catalog .grid{grid-template-columns:repeat(3,1fr)}
+  .hdr .cat-btn span,.h-ic small{display:none}
+  .ft{grid-template-columns:1fr 1fr}
+  .qv{grid-template-columns:1fr}.qv .thumb{min-height:240px}
+}
+@media (max-width:720px){
+  .topbar .hide-m{display:none}
+  .hdr{flex-wrap:wrap;height:auto;padding:12px 0;gap:10px}
+  .search{order:5;flex-basis:100%}
+  .search select{display:none}
+  .h-icons{margin-left:auto}
+  .cat-btn{display:none}
+  .add-btn span{display:none}.add-btn{padding:0 14px}
+  .slide{grid-template-columns:1fr;padding:28px 24px 48px}.slide .art{display:none}.dots{left:24px}
+  .side-promos{grid-template-columns:1fr}
+  .grid,.catalog .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .trust{grid-template-columns:1fr}
+  .sellers{grid-template-columns:repeat(2,1fr)}
+  .sell{grid-template-columns:1fr;padding:26px 22px}
+  .thumb .fb{font-size:56px}
+  .cb{padding:10px 11px 12px}
+  .price b{font-size:17px}
+}
+
+/* ===== shared view bits ===== */
+.crumbs{font-size:13.5px;color:var(--muted);margin:18px 0 14px;display:flex;gap:8px;flex-wrap:wrap}
+.crumbs a:hover{color:var(--green)}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.panel h4{font-size:16px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel h4 small{font-size:13px;font-weight:400;color:var(--muted)}
+.ai-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;font-family:Inter,sans-serif;background:#eef0fb;color:#3d4bb8;padding:2px 7px;border-radius:99px;letter-spacing:.02em}
+.btn2{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 16px;border-radius:9px;font-weight:600;font-size:14px;transition:.15s}
+.btn2.g{background:var(--green);color:#fff}.btn2.g:hover{background:var(--green-d)}
+.btn2.o{border:1px solid var(--line-2);color:var(--ink)}.btn2.o:hover{border-color:var(--ink)}
+.btn2.sm{height:32px;padding:0 12px;font-size:13px}
+.stars{color:var(--gold);letter-spacing:1px}
+.vbadge{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;color:var(--green-d);background:var(--green-l);padding:3px 9px;border-radius:99px}
+.st-ok{color:var(--green-d);background:var(--green-l)}
+.st-rev{color:#8a5a00;background:#fff4d6}
+.st-new{color:#1f63b4;background:#e8f1fb}
+.st-pack{color:#8a5a00;background:#fff4d6}
+.st-ship{color:#5b3fb5;background:#efeafb}
+.st-done{color:var(--green-d);background:var(--green-l)}
+.pill2{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap}
+
+/* ===== farmer profile ===== */
+.fp-head{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:18px}
+.fp-cover{height:150px;position:relative;background:linear-gradient(120deg,#1f5e37,#4f8a4f 60%,#a7b36a)}
+.fp-cover:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,transparent 0 46px,rgba(255,255,255,.06) 46px 48px)}
+.fp-main{display:flex;gap:22px;align-items:flex-end;padding:0 26px 22px;margin-top:-46px;position:relative;flex-wrap:wrap}
+.fp-av{width:112px;height:112px;border-radius:24px;border:4px solid #fff;display:grid;place-items:center;font-size:34px;font-weight:700;font-family:Inter,'Noto Sans Georgian',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.fp-id{flex:1;min-width:240px;padding-bottom:4px}
+.fp-id h1{font-size:26px;font-weight:600;line-height:1.2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fp-id .m{color:var(--ink-2);font-size:14px;margin-top:4px;display:flex;gap:14px;flex-wrap:wrap}
+.fp-act{display:flex;gap:8px;padding-bottom:4px}
+.fp-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+.fp-stats div{padding:16px 26px}
+.fp-stats div+div{border-left:1px solid var(--line)}
+.fp-stats b{display:block;font-family:Inter,sans-serif;font-size:22px;font-weight:700}
+.fp-stats span{font-size:13px;color:var(--muted)}
+.fp-grid{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start;margin-bottom:40px}
+.fp-side{display:grid;gap:18px}
+.about p{color:var(--ink-2);font-size:14.5px;line-height:1.65}
+.chips2{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.chips2 span{font-size:12.5px;background:#f3f4f2;padding:5px 10px;border-radius:99px;color:var(--ink-2)}
+.doc{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.doc:first-of-type{border-top:0}
+.doc .di{width:40px;height:40px;border-radius:10px;background:#f3f4f2;display:grid;place-items:center;color:var(--ink-2)}
+.doc b{font-size:14px;font-weight:600;display:block;line-height:1.3}
+.doc small{font-size:12.5px;color:var(--muted)}
+.rv{padding:16px 0;border-top:1px solid var(--line)}
+.rv:first-of-type{border-top:0;padding-top:4px}
+.rv-h{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:4px}
+.rv-h b{font-weight:600}
+.rv-h small{color:var(--muted);font-size:12.5px}
+.rv p{color:var(--ink-2);font-size:14.5px}
+.rv-sum{display:flex;gap:22px;align-items:center;margin-bottom:12px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.rv-sum .big{font-family:Inter,sans-serif;font-size:40px;font-weight:700;line-height:1}
+.rv-bars{flex:1;display:grid;gap:4px}
+.rv-bars div{display:grid;grid-template-columns:14px 1fr 30px;gap:8px;align-items:center;font-size:12px;color:var(--muted);font-family:Inter,sans-serif}
+.rv-bars i{height:6px;border-radius:99px;background:#eceee9;overflow:hidden;display:block}
+.rv-bars i em{display:block;height:100%;background:var(--gold);border-radius:99px}
+.fp-grid .grid{grid-template-columns:repeat(3,1fr)}
+
+/* ===== cabinet ===== */
+.cab{display:grid;grid-template-columns:250px 1fr;gap:18px;margin:18px 0 40px;align-items:start}
+.cab-nav{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px 10px;position:sticky;top:96px}
+.cab-me{display:flex;gap:10px;align-items:center;padding:0 8px 14px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.cab-me .av2{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:700;font-family:Inter,'Noto Sans Georgian',sans-serif}
+.cab-me b{display:block;font-size:14.5px;line-height:1.25}
+.cab-me a{font-size:12.5px;color:var(--green)}
+.cab-nav nav{display:grid;gap:2px}
+.cab-nav nav a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:9px;font-size:14.5px;color:var(--ink-2)}
+.cab-nav nav a:hover{background:#f3f4f2;color:var(--ink)}
+.cab-nav nav a.on{background:var(--green-l);color:var(--green-d);font-weight:600}
+.cab-nav nav a .ai-tag{margin-left:auto}
+.cab-nav nav a .cnt{margin-left:auto;font-size:11.5px;font-family:Inter,sans-serif;background:var(--orange);color:#fff;border-radius:99px;padding:1px 7px;font-weight:600}
+.cab-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.cab-h h2{font-size:24px;font-weight:600;line-height:1.2}
+.cab-h p{color:var(--muted);font-size:14px;margin-top:2px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.kpi{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.kpi span{font-size:13px;color:var(--muted);display:block}
+.kpi b{font-family:Inter,sans-serif;font-size:24px;font-weight:700;letter-spacing:-.01em;display:block;margin:4px 0 2px}
+.kpi small{font-size:12.5px;color:var(--ink-2)}
+.kpi small.up{color:var(--green-d)}.kpi small.dn{color:var(--red)}
+.two-col{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:16px}
+.two-col.even{grid-template-columns:1fr 1fr}
+.stack{display:grid;gap:16px}
+.insight{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.insight:first-of-type{border-top:0;padding-top:0}
+.insight .ii{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:#f3f4f2}
+.insight b{font-size:14.5px;font-weight:600;display:block;line-height:1.35}
+.insight p{font-size:13.5px;color:var(--ink-2);margin:3px 0 6px}
+.insight a{font-size:13px;font-weight:600;color:var(--green)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-weight:500;font-size:12.5px;color:var(--muted);padding:0 10px 10px 0;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right}
+.tbl .n{font-family:Inter,sans-serif;font-variant-numeric:tabular-nums}
+.tbl small{display:block;color:var(--muted);font-size:12.5px}
+.tbl-wrap{overflow-x:auto}
+
+/* quality */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.steps3 div{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;gap:12px}
+.steps3 .sn{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-family:Inter,sans-serif;font-weight:700;display:grid;place-items:center;font-size:14px;flex:none}
+.steps3 b{display:block;font-size:14.5px}
+.steps3 span{font-size:13px;color:var(--muted)}
+.drop{display:block;border:2px dashed var(--line-2);border-radius:12px;padding:26px;text-align:center;color:var(--ink-2);font-size:14px;cursor:pointer;transition:.15s;background:#fafbf9}
+.drop:hover,.drop.over{border-color:var(--green);background:var(--green-l)}
+.drop b{display:block;color:var(--ink);font-size:15px;margin:8px 0 2px}
+.drop .fn{margin-top:10px;font-weight:600;color:var(--green-d)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.fgrid label{font-size:13px;color:var(--ink-2);display:block;margin-bottom:6px}
+.fgrid select,.fgrid input,.inp{width:100%;height:42px;border:1px solid var(--line-2);border-radius:9px;padding:0 12px;font-size:14.5px;background:#fff}
+.fgrid select:focus,.fgrid input:focus,.inp:focus{outline:none;border-color:var(--green)}
+.spin{width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;display:inline-block;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* assistant */
+.asst{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.achat{background:var(--white);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;height:620px}
+.achat-h{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.achat-h b{font-size:15px}
+.achat-b{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.am{max-width:82%;font-size:14.5px;line-height:1.6;padding:11px 14px;border-radius:12px}
+.am.me{align-self:flex-end;background:var(--green);color:#fff;border-bottom-right-radius:3px}
+.am.ai{align-self:flex-start;background:#f3f4f2;border-bottom-left-radius:3px}
+.am.ai small{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+.typing{display:inline-flex;gap:4px;padding:4px 0}.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:ty 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes ty{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.sugg{display:flex;gap:6px;flex-wrap:wrap;padding:0 18px 12px}
+.sugg button{font-size:13px;border:1px solid var(--line-2);border-radius:99px;padding:6px 12px;color:var(--ink-2);background:#fff}
+.sugg button:hover{border-color:var(--green);color:var(--green-d)}
+.achat form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.achat form input{flex:1}
+.wx{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;text-align:center;font-size:12.5px}
+.wx div{padding:8px 0;border-radius:9px}
+.wx div.al{background:#fdecea}
+.wx .e{font-size:22px;display:block;margin:2px 0}
+.wx b{font-family:Inter,sans-serif;font-weight:600}
+.wx small{color:var(--muted);font-family:Inter,sans-serif}
+.ctx{display:grid;gap:8px;font-size:13.5px}
+.ctx div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding-bottom:7px}
+.ctx div span:first-child{color:var(--muted)}
+.todo{display:grid;gap:10px}
+.todo label{display:grid;grid-template-columns:18px 1fr;gap:10px;font-size:13.5px;color:var(--ink-2);cursor:pointer}
+.todo input{accent-color:var(--green);width:16px;height:16px;margin-top:2px}
+.todo input:checked+span{text-decoration:line-through;color:var(--muted)}
+
+/* charts */
+.seg{display:inline-flex;background:#f3f4f2;border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{padding:7px 14px;border-radius:8px;font-size:13.5px;color:var(--ink-2)}
+.seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .gl{stroke:#eceee9;stroke-width:1}
+.chart .ax{fill:var(--muted);font-size:11px;font-family:Inter,sans-serif}
+.chart .lbl{fill:var(--ink-2);font-size:11.5px;font-family:Inter,'Noto Sans Georgian',sans-serif}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;line-height:1.45;padding:8px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .1s;z-index:3}
+.tip.on{opacity:1}
+.tip b{font-family:Inter,sans-serif}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink-2);flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.legend i.ln{height:2px;width:18px;border-radius:2px}
+.legend i.dash{height:0;width:18px;border-top:2px dashed;border-radius:0}
+.legend i.band{height:10px;width:18px;border-radius:2px}
+.hbars{display:grid;gap:12px}
+.hb{display:grid;grid-template-columns:170px 1fr 86px;gap:12px;align-items:center;font-size:13.5px}
+.hb .tr{height:10px;background:#f0f2ef;border-radius:99px;overflow:hidden}
+.hb .tr i{display:block;height:100%;background:var(--green);border-radius:99px}
+.hb .v{text-align:right;font-family:Inter,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hb .v small{color:var(--muted);margin-left:4px}
+
+/* pricing */
+.price-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.price-hero div{padding:16px 18px}
+.price-hero div+div{border-left:1px solid var(--line)}
+.price-hero div.rec{background:var(--green-l)}
+.price-hero span{font-size:13px;color:var(--muted);display:block}
+.price-hero b{font-family:Inter,sans-serif;font-size:26px;font-weight:700;display:block;margin:2px 0}
+.price-hero small{font-size:12.5px;color:var(--ink-2)}
+.factors{display:grid;gap:0}
+.factors div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.factors div:first-child{border-top:0}
+.factors .n{font-family:Inter,sans-serif;font-weight:600;white-space:nowrap}
+.factors .pos{color:var(--green-d)}.factors .neg{color:var(--red)}
+.slider-row{display:flex;align-items:center;gap:14px;margin:6px 0 4px}
+.slider-row input[type=range]{flex:1;accent-color:var(--green)}
+.slider-row b{font-family:Inter,sans-serif;font-size:20px;min-width:90px;text-align:right}
+.sim{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.sim div{background:#f6f7f5;border-radius:10px;padding:12px}
+.sim span{font-size:12.5px;color:var(--muted);display:block}
+.sim b{font-family:Inter,sans-serif;font-size:18px}
+.comp{display:grid;gap:8px;font-size:14px}
+.comp div{display:flex;justify-content:space-between;gap:10px}
+.comp .n{font-family:Inter,sans-serif;font-weight:600}
+.drivers{display:grid;gap:10px;font-size:14px}
+.drivers div{display:grid;grid-template-columns:26px 1fr;gap:8px;color:var(--ink-2)}
+.drivers b{color:var(--ink);font-weight:600}
+.rec-box{background:var(--green-l);border-radius:12px;padding:16px 18px;font-size:14.5px;color:var(--ink);line-height:1.6}
+.rec-box b{display:block;margin-bottom:4px;color:var(--green-d)}
+
+@media (max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.two-col,.two-col.even,.asst{grid-template-columns:1fr}.fp-grid{grid-template-columns:1fr}.fp-grid .grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .cab{grid-template-columns:1fr}
+  .cab-nav{position:static;padding:8px}
+  .cab-me{display:none}
+  .cab-nav nav{display:flex;overflow-x:auto;gap:4px;scrollbar-width:none}
+  .cab-nav nav a{white-space:nowrap;padding:8px 12px}
+  .cab-nav nav a .ai-tag,.cab-nav nav a .cnt{margin-left:4px}
+  .steps3,.price-hero,.sim{grid-template-columns:1fr}
+  .price-hero div+div{border-left:0;border-top:1px solid var(--line)}
+  .fp-stats{grid-template-columns:repeat(2,1fr)}.fp-stats div:nth-child(3){border-left:0}.fp-stats div:nth-child(n+3){border-top:1px solid var(--line)}
+  .hb{grid-template-columns:110px 1fr 76px}
+  .fgrid{grid-template-columns:1fr}
+  .achat{height:540px}
+}
+@media (max-width:560px){.kpis{grid-template-columns:1fr 1fr}.kpi b{font-size:20px}.fp-grid .grid{grid-template-columns:repeat(2,1fr)}.fp-act{width:100%}.fp-act .btn2{flex:1}}
+
+/* ===== auth ===== */
+.ubtn{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 5px;border-radius:99px;border:1px solid var(--line);position:relative}
+.ubtn:hover{border-color:var(--line-2)}
+.ubtn .ua{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;font-family:Inter,'Noto Sans Georgian',sans-serif}
+.ubtn .un{font-size:14px;font-weight:600;max-width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.umenu{position:absolute;right:0;top:calc(100% + 8px);width:250px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px -12px rgba(28,33,29,.25);padding:8px;display:none;z-index:50;text-align:left}
+.umenu.on{display:block}
+.umenu .uh{padding:10px 10px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.umenu .uh b{display:block;font-size:15px}
+.umenu .uh span{font-size:12.5px;color:var(--muted)}
+.umenu .role{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--green-l);color:var(--green-d)}
+.umenu a,.umenu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px;border-radius:9px;font-size:14.5px;color:var(--ink);text-align:left}
+.umenu a:hover,.umenu button:hover{background:#f3f4f2}
+.umenu .out{color:var(--red);border-top:1px solid var(--line);border-radius:0 0 9px 9px;margin-top:6px}
+.hwrap{position:relative}
+.auth{padding:28px 30px 30px;max-width:460px;width:100%}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f3f4f2;border-radius:11px;padding:4px;margin-bottom:18px}
+.auth-tabs button{height:40px;border-radius:8px;font-weight:600;font-size:14.5px;color:var(--ink-2)}
+.auth-tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.auth h3{font-size:21px;margin-bottom:4px}
+.auth .sub{color:var(--muted);font-size:14px;margin-bottom:6px}
+.auth .note{background:var(--orange-l);color:#9a4310;border-radius:10px;padding:10px 12px;font-size:13.5px;margin-bottom:14px}
+.auth label{display:block;font-size:13.5px;color:var(--ink-2);margin:14px 0 6px}
+.auth input:not([type=checkbox]):not([type=radio]),.auth select{width:100%;height:46px;border:1px solid var(--line-2);border-radius:10px;padding:0 14px;font-size:15px;background:#fff}
+.auth input:focus,.auth select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-l)}
+.auth input.bad{border-color:var(--red)}
+.pw{position:relative}
+.pw button{position:absolute;right:6px;top:6px;height:34px;padding:0 10px;font-size:12.5px;color:var(--muted);border-radius:7px}
+.pw button:hover{background:#f3f4f2;color:var(--ink)}
+.auth .row2{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:13.5px}
+.auth .row2 a{color:var(--green);font-weight:600}
+.auth .err{color:var(--red);font-size:13.5px;margin-top:10px;min-height:20px}
+.auth .hint{font-size:12.5px;color:var(--muted);margin-top:5px}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.roles label{margin:0;border:1.5px solid var(--line-2);border-radius:12px;padding:12px 12px 12px 14px;cursor:pointer;display:block;color:var(--ink);transition:.15s}
+.roles label:has(input:checked){border-color:var(--green);background:var(--green-l)}
+.roles input{position:absolute;opacity:0;pointer-events:none}
+.roles .ri{font-size:22px;display:block;margin-bottom:4px}
+.roles b{display:block;font-size:14.5px}
+.roles span{font-size:12.5px;color:var(--ink-2);line-height:1.35;display:block;margin-top:2px}
+.terms{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink-2);margin-top:14px;cursor:pointer}
+.terms input{accent-color:var(--green);width:17px;height:17px;margin-top:1px;flex:none}
+.or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px;margin:18px 0 12px}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
+.demo-btn{width:100%;height:46px;border:1px dashed var(--green);border-radius:10px;color:var(--green-d);font-weight:600;font-size:14.5px;background:#fafdfb}
+.demo-btn:hover{background:var(--green-l)}
+.gate{max-width:760px;margin:40px auto 60px;text-align:center}
+.gate .gi{width:72px;height:72px;border-radius:20px;background:var(--green-l);display:grid;place-items:center;font-size:36px;margin:0 auto 16px}
+.gate h2{font-size:28px;font-weight:600;margin-bottom:8px}
+.gate>p{color:var(--ink-2);max-width:520px;margin:0 auto 22px}
+.gate .acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.gate .acts .btn2{height:46px;padding:0 20px}
+.gate .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:left}
+.gate .feat div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.gate .feat b{display:block;font-size:14.5px;margin:6px 0 2px}
+.gate .feat span{font-size:13px;color:var(--muted)}
+.demo-note{background:#fff8e6;border:1px solid #f4dfa6;color:#7a5a00;border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+@media (max-width:720px){.gate .feat{grid-template-columns:1fr 1fr}.ubtn .un{display:none}.ubtn{padding:4px}.roles{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span data-en="Georgia's farm produce marketplace">საქართველოს ფერმერული პროდუქციის მარკეტი</span>
+    <a href="#" class="hide-m" data-en="Delivery and payment" onclick="toast(t('მიწოდება თბილისში 24 საათში, რეგიონებში 2–3 დღეში','Delivery in Tbilisi within 24 hours, regions in 2–3 days'));return false">მიწოდება და გადახდა</a>
+    <a href="#" class="hide-m" data-en="Help" onclick="toast(t('დახმარების ცენტრი: *0707','Help centre: *0707'));return false">დახმარება</a>
+    <span class="sp hide-m num">*0707</span>
+    <div class="lang" role="group" aria-label="Language"><button data-l="ka" class="on">ქარ</button><button data-l="en">EN</button></div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap hdr">
+    <a href="#" class="logo" onclick="location.hash='market';setCat('all');window.scrollTo({top:0,behavior:'smooth'});return false">
+      <span class="logo-m"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c0-4 3-6.5 7.5-6.5 0 4.5-3 6.5-7.5 6.5z"/><path d="M12 14c0-3-2.5-5.5-6.5-5.5 0 3.5 2.5 5.5 6.5 5.5z"/></svg></span>
+      <b>Agri<i>Trust</i></b>
+    </a>
+    <button class="cat-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span data-en="Categories">კატეგორიები</span></button>
+    <form class="search" id="searchForm">
+      <select id="searchCat" aria-label="Category"></select>
+      <input id="q" placeholder="მოძებნე: პომიდორი, თაფლი, ყველი…" data-en-ph="Search: tomatoes, honey, cheese…" autocomplete="off">
+      <button aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span data-en="Search">ძიება</span></button>
+    </form>
+    <div class="h-icons">
+      <button class="h-ic" onclick="showFavs()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><small data-en="Saved">რჩეული</small><span class="b" id="favN">0</span></button>
+      <button class="h-ic" onclick="openCart()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg><small data-en="Cart">კალათა</small><span class="b" id="cartN">0</span></button>
+      <div class="hwrap" id="userWrap"></div>
+    </div>
+    <button class="add-btn" onclick="sellClick()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-en="Sell produce">გაყიდე პროდუქცია</span></button>
+  </div>
+</header>
+
+<nav class="cats"><div class="wrap" id="cats"></div></nav>
+
+<main class="wrap" id="view-market">
+
+  <div class="hero">
+    <div class="slider" id="slider">
+      <div class="slide on" style="background:linear-gradient(120deg,#5a1f3a,#8c2f4f)">
+        <div><span class="tag" data-en="Rtveli 2026">რთველი 2026</span><h2 data-en="Grapes straight from the vineyard">ყურძენი პირდაპირ ვენახიდან</h2><p data-en="Rkatsiteli, Saperavi and Mtsvane from Kakhetian vineyards. Wholesale from 500 kg.">რქაწითელი, საფერავი და მწვანე კახური ვენახებიდან. საბითუმოდ 500 კგ-დან.</p><a href="#catalog" class="go" onclick="setCat('grapes')" data-en="View grapes →">ყურძნის ნახვა →</a></div>
+        <div class="art"><img src="https://images.unsplash.com/photo-1789290524515-3f350afc00c4?w=720&h=720&fit=crop&q=75&auto=format" alt="" onerror="this.replaceWith('🍇')"></div>
+      </div>
+      <div class="slide" style="background:linear-gradient(120deg,#b4520f,#e8862a)">
+        <div><span class="tag" data-en="In season">სეზონის პროდუქტი</span><h2 data-en="Adjara mandarins have arrived">აჭარის მანდარინი უკვე აქ არის</h2><p data-en="Fresh from Kobuleti and Khelvachauri gardens. Delivered to Tbilisi within a day.">ახალი მოსავალი ქობულეთისა და ხელვაჩაურის ბაღებიდან. თბილისში ერთ დღეში მოგაწვდით.</p><a href="#catalog" class="go" onclick="setCat('fruit')" data-en="Shop fruit →">ხილის ნახვა →</a></div>
+        <div class="art"><img src="https://images.unsplash.com/photo-1579169326371-ccb4e63f7889?w=720&h=720&fit=crop&q=75&auto=format" alt="" onerror="this.replaceWith('🍊')"></div>
+      </div>
+      <div class="slide" style="background:linear-gradient(120deg,#14532d,#1f8048)">
+        <div><span class="tag" data-en="Lab tested">ლაბორატორიით შემოწმებული</span><h2 data-en="Every lot comes with a lab report">ყველა პარტიას თან ახლავს დასკვნა</h2><p data-en="Look for the green badge: pesticides, nitrates and heavy metals checked by an accredited lab.">მოძებნე მწვანე ნიშანი: პესტიციდები, ნიტრატები და მძიმე ლითონები აკრედიტებულ ლაბორატორიაშია შემოწმებული.</p><a href="#catalog" class="go" onclick="onlyLab()" data-en="Lab-tested only →">მხოლოდ შემოწმებული →</a></div>
+        <div class="art">🧪</div>
+      </div>
+      <div class="dots" id="dots"><button class="on" aria-label="1"></button><button aria-label="2"></button><button aria-label="3"></button></div>
+    </div>
+    <div class="side-promos">
+      <div class="promo a"><div><b data-en="Wholesale for restaurants">საბითუმო ფასები რესტორნებისთვის</b><span data-en="Weekly orders from several farms with one invoice.">კვირის შეკვეთა რამდენიმე ფერმიდან, ერთი ინვოისით.</span></div><a href="#" data-en="Open a business account →" onclick="openForm('biz');return false">ბიზნეს ანგარიში →</a><span class="em">🧑‍🍳</span></div>
+      <div class="promo b"><div><b data-en="Free delivery over 80 ₾">უფასო მიწოდება 80 ₾-დან</b><span data-en="Across Tbilisi, Rustavi and Mtskheta.">თბილისში, რუსთავსა და მცხეთაში.</span></div><a href="#catalog" data-en="Start shopping →">დაიწყე ყიდვა →</a><span class="em">🚚</span></div>
+    </div>
+  </div>
+
+  <div class="trust">
+    <div><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><p><b data-en="Lab-tested lots">შემოწმებული პარტიები</b><span data-en="Report attached to the listing">დასკვნა განცხადებაზეა მიმაგრებული</span></p></div>
+    <div><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span><p><b data-en="Delivery in 24 hours">მიწოდება 24 საათში</b><span data-en="Tbilisi, Rustavi, Mtskheta">თბილისი, რუსთავი, მცხეთა</span></p></div>
+    <div><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg></span><p><b data-en="Secure payment">უსაფრთხო გადახდა</b><span data-en="Card, transfer or cash on delivery">ბარათით, გადარიცხვით ან ადგილზე</span></p></div>
+    <div><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg></span><p><b data-en="Direct from the farmer">პირდაპირ ფერმერისგან</b><span data-en="No resellers in between">გადამყიდველის გარეშე</span></p></div>
+  </div>
+
+  <section>
+    <div class="sh"><h3><span data-en="Deals of the week">კვირის შეთავაზებები</span><span class="pill num">−15%</span></h3><a href="#catalog" onclick="sortBy('sale')" data-en="See all →">ყველა →</a></div>
+    <div class="grid" id="deals"></div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <aside class="filters" id="filters">
+      <div class="fg" style="display:flex;justify-content:space-between;align-items:center"><h4 style="margin:0;font-size:16px" data-en="Filters">ფილტრები</h4><button class="x filter-close" onclick="filtersEl.classList.remove('on');shade.classList.remove('on')" aria-label="Close" style="display:none">✕</button></div>
+      <div class="fg"><h4 data-en="Region">რეგიონი</h4><div id="fRegion"></div></div>
+      <div class="fg"><h4 data-en="Price, ₾">ფასი, ₾</h4><div class="range"><input id="pMin" type="number" min="0" placeholder="დან" data-en-ph="from"><span>–</span><input id="pMax" type="number" min="0" placeholder="მდე" data-en-ph="to"></div></div>
+      <div class="fg">
+        <label class="switch"><span data-en="Lab-tested only">მხოლოდ შემოწმებული</span><input type="checkbox" id="fLab"></label>
+        <label class="switch"><span data-en="Organic">ორგანული</span><input type="checkbox" id="fOrg"></label>
+        <label class="switch"><span data-en="On sale">ფასდაკლებით</span><input type="checkbox" id="fSale"></label>
+      </div>
+      <button class="reset" onclick="resetFilters()" data-en="Clear filters">ფილტრების გასუფთავება</button>
+    </aside>
+    <div>
+      <div class="toolbar">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <button class="filter-toggle" onclick="filtersEl.classList.add('on');shade.classList.add('on')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span data-en="Filters">ფილტრები</span></button>
+          <span class="cnt" id="cnt"></span>
+          <div class="chips" id="chips"></div>
+        </div>
+        <select class="sort" id="sort" aria-label="Sort"></select>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><h3 data-en="Top farmers">საუკეთესო ფერმერები</h3><a href="#" data-en="All farmers →" onclick="toast(t('ფერმერების სია მალე დაემატება','Farmer directory coming soon'));return false">ყველა ფერმერი →</a></div>
+    <div class="sellers" id="sellers"></div>
+  </section>
+
+  <div class="sell">
+    <div>
+      <h3 data-en="Have a harvest to sell?">გაქვს მოსავალი გასაყიდი?</h3>
+      <p data-en="Post a listing in five minutes. Thousands of buyers, from families to restaurants, shop on AgriTrust every day.">განცხადება ხუთ წუთში დაამატე. AgriTrust-ზე ყოველდღე ათასობით მყიდველი ყიდულობს, ოჯახებიდან რესტორნებამდე.</p>
+      <ul><li data-en="Free listing">უფასო განთავსება</li><li data-en="0% commission on first 3 orders">0% საკომისიო პირველ 3 შეკვეთაზე</li><li data-en="Price suggestions from market data">ფასის რჩევა ბაზრის მონაცემებით</li></ul>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="add-btn" onclick="sellClick()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span data-en="Post a listing">განცხადების დამატება</span></button><a href="#cabinet" class="btn2 o" style="height:50px;border-color:#5a615b;color:#fff" data-en="See the farmer dashboard">ფერმერის კაბინეტი</a></div>
+  </div>
+</main>
+<div class="wrap" id="view-farm" hidden></div>
+<div class="wrap" id="view-cabinet" hidden></div>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <a href="#" class="logo"><span class="logo-m"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c0-4 3-6.5 7.5-6.5 0 4.5-3 6.5-7.5 6.5z"/><path d="M12 14c0-3-2.5-5.5-6.5-5.5 0 3.5 2.5 5.5 6.5 5.5z"/></svg></span><b>Agri<i>Trust</i></b></a>
+        <p style="margin:12px 0;max-width:300px" data-en="Georgian farm produce, direct from the people who grow it.">ქართული ფერმერული პროდუქცია პირდაპირ მათგან, ვინც მოიყვანა.</p>
+        <div class="num">*0707 · hello@agritrust.ge</div>
+      </div>
+      <div><h5 data-en="Buyers">მყიდველებს</h5><ul><li><a href="#catalog" data-en="Catalogue">კატალოგი</a></li><li><a href="#" data-en="Delivery">მიწოდება</a></li><li><a href="#" data-en="Returns">დაბრუნება</a></li></ul></div>
+      <div><h5 data-en="Farmers">ფერმერებს</h5><ul><li><a href="#cabinet-sales" data-en="Post a listing">განცხადების დამატება</a></li><li><a href="#" data-en="Lab testing">ლაბორატორია</a></li><li><a href="#" data-en="Fees">საკომისიო</a></li></ul></div>
+      <div><h5 data-en="Account">ანგარიში</h5><ul><li><a href="#" onclick="openAuth('login');return false" data-en="Log in">შესვლა</a></li><li><a href="#" onclick="openAuth('register');return false" data-en="Sign up">რეგისტრაცია</a></li><li><a href="#cabinet" data-en="Farmer dashboard">ფერმერის კაბინეტი</a></li></ul></div><div><h5 data-en="Business">ბიზნესს</h5><ul><li><a href="#" onclick="openForm('biz');return false" data-en="Wholesale">საბითუმო</a></li><li><a href="#" data-en="Restaurants">რესტორნები</a></li><li><a href="#" data-en="Shops">მაღაზიები</a></li></ul></div>
+      <div><h5 data-en="Payment methods">გადახდის მეთოდები</h5><div class="pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span data-en="Cash">ნაღდი</span></div></div>
+    </div>
+    <div class="fb-bottom"><span>© 2026 AgriTrust · <span data-en="Photos: Unsplash">ფოტოები: Unsplash</span></span><span data-en="Terms · Privacy">წესები · კონფიდენციალურობა</span></div>
+  </div>
+</footer>
+
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-label="Cart">
+  <div class="dh"><b data-en="Cart">კალათა</b><button class="x" onclick="closeAll()" aria-label="Close">✕</button></div>
+  <div class="items" id="items"></div>
+  <div class="df" id="df"></div>
+</aside>
+<div class="modal" id="modal"><div class="mbox" id="mbox"></div></div>
+<div class="toast" id="toastEl"></div>
+
+<script>
+let lang='ka';const t=(ka,en)=>lang==='ka'?ka:en;
+const $=id=>document.getElementById(id);
+
+/* ---------- data ---------- */
+const CATS=[
+ ['all','🧺','ყველა','All'],['veg','🥕','ბოსტნეული','Vegetables'],['fruit','🍎','ხილი','Fruit'],['grapes','🍇','ყურძენი','Grapes'],
+ ['greens','🌿','მწვანილი','Greens'],['nuts','🌰','თხილი, კაკალი','Nuts'],['dairy','🧀','რძის ნაწარმი','Dairy'],['honey','🍯','თაფლი','Honey'],
+ ['eggs','🥚','კვერცხი','Eggs'],['grain','🌽','მარცვლეული','Grains & beans']
+];
+const REG={kakheti:['კახეთი','Kakheti'],kartli:['ქართლი','Kartli'],imereti:['იმერეთი','Imereti'],samegrelo:['სამეგრელო','Samegrelo'],adjara:['აჭარა','Adjara'],javakheti:['სამცხე-ჯავახეთი','Samtskhe-Javakheti'],racha:['რაჭა','Racha'],mtianeti:['მცხეთა-მთიანეთი','Mtskheta-Mtianeti']};
+const U={kg:['კგ','kg'],bunch:['კონა','bunch'],pc:['ცალი','each'],l:['ლ','L'],jar:['ქილა','jar']};
+const P=[
+ {id:1,c:'veg',e:'🍅',bg:'#fde7e2',ka:'პომიდორი ვარდისფერი, ორგანული',en:'Pink tomatoes, organic',p:4.20,o:4.90,u:'kg',r:'kakheti',cka:'ყვარელი',cen:'Kvareli',s:0,lab:1,org:1,vip:1,stock:380,d:1},
+ {id:2,c:'grapes',e:'🍇',bg:'#eaf3dc',ka:'ყურძენი რქაწითელი, საბითუმოდ',en:'Rkatsiteli grapes, wholesale',p:1.30,u:'kg',r:'kakheti',cka:'თელავი',cen:'Telavi',s:1,lab:1,vip:1,stock:2400,d:2},
+ {id:3,c:'grapes',e:'🍇',bg:'#ece3f1',ka:'ყურძენი საფერავი',en:'Saperavi grapes',p:1.60,u:'kg',r:'kakheti',cka:'ყვარელი',cen:'Kvareli',s:1,lab:1,stock:1800,d:3},
+ {id:4,c:'fruit',e:'🍊',bg:'#fff0dc',ka:'მანდარინი, ახალი მოსავალი',en:'Mandarins, new harvest',p:1.40,o:1.70,u:'kg',r:'adjara',cka:'ქობულეთი',cen:'Kobuleti',s:6,lab:1,vip:1,stock:3000,d:0},
+ {id:5,c:'fruit',e:'🍏',bg:'#eef6dc',ka:'ვაშლი გოლდენი',en:'Golden apples',p:1.80,u:'kg',r:'kartli',cka:'გორი',cen:'Gori',s:2,lab:1,stock:1100,d:4},
+ {id:6,c:'veg',e:'🥔',bg:'#f3ecdf',ka:'კარტოფილი ჯავახური',en:'Javakheti potatoes',p:1.10,u:'kg',r:'javakheti',cka:'ახალქალაქი',cen:'Akhalkalaki',s:3,lab:1,stock:6000,d:5},
+ {id:7,c:'greens',e:'🌿',bg:'#e2f2e4',ka:'ქინძი, სათბურის',en:'Coriander, greenhouse',p:1.00,u:'bunch',r:'kakheti',cka:'ლაგოდეხი',cen:'Lagodekhi',s:4,lab:0,stock:400,d:0},
+ {id:8,c:'nuts',e:'🌰',bg:'#f1e6da',ka:'თხილი გარჩეული, 2026 წლის',en:'Shelled hazelnuts, 2026 crop',p:22.00,o:25.00,u:'kg',r:'samegrelo',cka:'ზუგდიდი',cen:'Zugdidi',s:5,lab:1,stock:150,d:2},
+ {id:9,c:'dairy',e:'🧀',bg:'#fdf3d6',ka:'იმერული ყველი, სოფლის',en:'Imeretian cheese, village-made',p:16.00,u:'kg',r:'imereti',cka:'ბაღდათი',cen:'Baghdati',s:7,lab:1,stock:60,d:1},
+ {id:10,c:'honey',e:'🍯',bg:'#fdecc8',ka:'ცაცხვის თაფლი, 1 კგ ქილა',en:'Linden honey, 1 kg jar',p:35.00,u:'jar',r:'racha',cka:'ამბროლაური',cen:'Ambrolauri',s:8,lab:1,org:1,vip:1,stock:90,d:3},
+ {id:11,c:'eggs',e:'🥚',bg:'#f6f0e6',ka:'სოფლის კვერცხი',en:'Free-range eggs',p:0.60,u:'pc',r:'mtianeti',cka:'მცხეთა',cen:'Mtskheta',s:9,lab:1,stock:1200,d:0},
+ {id:12,c:'veg',e:'🍆',bg:'#ece6f3',ka:'ბადრიჯანი',en:'Aubergines',p:3.60,o:4.00,u:'kg',r:'kartli',cka:'მარნეული',cen:'Marneuli',s:10,lab:1,stock:500,d:1},
+ {id:13,c:'veg',e:'🫑',bg:'#e3f2e0',ka:'ბულგარული წიწაკა',en:'Bell peppers',p:3.20,u:'kg',r:'kartli',cka:'მარნეული',cen:'Marneuli',s:10,lab:0,stock:420,d:2},
+ {id:14,c:'grain',e:'🌽',bg:'#fdf2cf',ka:'სიმინდის ფქვილი, წისქვილის',en:'Stone-ground corn flour',p:2.20,u:'kg',r:'samegrelo',cka:'მარტვილი',cen:'Martvili',s:5,lab:1,stock:700,d:6},
+ {id:15,c:'grain',e:'🫘',bg:'#f3e3dc',ka:'რაჭული ლობიო',en:'Racha red beans',p:6.50,u:'kg',r:'racha',cka:'ონი',cen:'Oni',s:8,lab:1,org:1,stock:240,d:4},
+ {id:16,c:'dairy',e:'🥛',bg:'#eef2f6',ka:'მაწონი, თიხის ქოთანში',en:'Matsoni in a clay pot',p:3.00,u:'l',r:'mtianeti',cka:'თიანეთი',cen:'Tianeti',s:11,lab:1,stock:80,d:0},
+ {id:17,c:'nuts',e:'🥜',bg:'#efe4d6',ka:'კაკალი გარჩეული',en:'Shelled walnuts',p:24.00,u:'kg',r:'imereti',cka:'ზესტაფონი',cen:'Zestaponi',s:7,lab:0,stock:110,d:5},
+ {id:18,c:'greens',e:'🥬',bg:'#e5f3df',ka:'მწვანილის ასორტი (ტარხუნა, ოხრახუში, კამა)',en:'Herb mix (tarragon, parsley, dill)',p:2.50,o:3.00,u:'bunch',r:'kakheti',cka:'ლაგოდეხი',cen:'Lagodekhi',s:4,lab:1,stock:300,d:1}
+];
+const S=[
+ {ka:'ნინო ბერიძე',en:'Nino Beridze',bg:'#fde7e2',fg:'#a5382a',rt:4.9,n:86},{ka:'ჩხეიძეების ვენახი',en:'Chkheidze vineyard',bg:'#ece3f1',fg:'#6a3a86',rt:4.8,n:142},
+ {ka:'კაპანაძეების ბაღი',en:'Kapanadze orchard',bg:'#eef6dc',fg:'#4b6b1c',rt:4.7,n:64},{ka:'ახალქალაქის კოოპ.',en:'Akhalkalaki co-op',bg:'#f3ecdf',fg:'#7a5a2b',rt:4.6,n:203},
+ {ka:'ლაგოდეხის სათბური',en:'Lagodekhi greenhouse',bg:'#e2f2e4',fg:'#1f6b3a',rt:4.8,n:118},{ka:'გაბელაიების მეურნეობა',en:'Gabelaia farm',bg:'#f1e6da',fg:'#7b4b23',rt:4.9,n:77},
+ {ka:'ქობულეთის ბაღები',en:'Kobuleti gardens',bg:'#fff0dc',fg:'#b45a0d',rt:4.7,n:95},{ka:'ბაღდათის ფერმა',en:'Baghdati farm',bg:'#fdf3d6',fg:'#8a6a10',rt:4.9,n:58},
+ {ka:'რაჭის საფუტკრე',en:'Racha apiary',bg:'#fdecc8',fg:'#8a5a00',rt:5.0,n:41},{ka:'მცხეთის ეზო',en:'Mtskheta farmyard',bg:'#f6f0e6',fg:'#6b5a3b',rt:4.8,n:133},
+ {ka:'მარნეულის მეურნეობა',en:'Marneuli farm',bg:'#ece6f3',fg:'#4e3a7a',rt:4.6,n:170},{ka:'თიანეთის რძე',en:'Tianeti dairy',bg:'#eef2f6',fg:'#3a5a7a',rt:4.9,n:66}
+];
+const SORTS=[['pop','პოპულარული','Most popular'],['new','ახალი','Newest'],['cheap','ფასი: ზრდადობით','Price: low to high'],['exp','ფასი: კლებადობით','Price: high to low'],['sale','ფასდაკლება','Biggest discount']];
+
+/* ---------- helpers ---------- */
+const fmt=n=>n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const nm=p=>t(p.ka,p.en), un=p=>t(...U[p.u]), city=p=>t(p.cka,p.cen), reg=r=>t(...REG[r]);
+const disc=p=>p.o?Math.round((1-p.p/p.o)*100):0;
+const ago=d=>d===0?t('დღეს','today'):d===1?t('გუშინ','yesterday'):t(`${d} დღის წინ`,`${d} days ago`);
+const heart='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+const pin='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg>';
+/* photo slot: put images/<id>.jpg next to index.html and it replaces the emoji */
+const PH={1: "1511915274835-e2e34894d687", 2: "1789290524515-3f350afc00c4", 3: "1578829779691-99b60bd8c7be", 4: "1743071877775-87d87793c8b4", 5: "1731321967733-87167dba4415", 6: "1518977676601-b53f82aba655", 7: "1709482107035-9ac8a2fb2ac9", 8: "1761591470313-003c5a243356", 9: "1668104129962-66e931ec9a61", 10: "1587049352851-8d4e89133924", 11: "1593462430565-94f606c65e71", 12: "1683543122945-513029986574", 13: "1774712471470-5aa92dfc94ae", 14: "1578652903016-b78571b87410", 15: "1763368397625-32c8f75fed44", 16: "1581868164904-77b124b80242", 17: "1766186471458-840baf8bc04f", 18: "1691391611977-198acc8d43b2", 19: "1722782034797-d1dc4157026e", 20: "1709132301602-b001c50aa459"};
+const uns=(u,w=600,hh=500)=>`https://images.unsplash.com/photo-${u}?w=${w}&h=${hh}&fit=crop&q=72&auto=format`;
+function imgFail(i){if(i.dataset.u&&!i.dataset.t){i.dataset.t=1;i.src=uns(i.dataset.u)}else i.remove()}
+const img=p=>`<img src="images/${p.id}.jpg" alt="${p.en.replace(/"/g,'')}" loading="lazy" ${PH[p.id]?`data-u="${PH[p.id]}"`:''} onerror="imgFail(this)"><span class="fb">${p.e}</span>`;
+
+let favs=new Set(),cart={};
+function card(p){
+  const d=disc(p),s=S[p.s];
+  return `<article class="card" onclick="quick(${p.id})">
+   <div class="thumb" style="background:${p.bg}">${img(p)}
+    <div class="badges">${d?`<span class="bd sale">−${d}%</span>`:''}${p.vip?`<span class="bd vip">VIP</span>`:''}${p.lab?`<span class="bd lab">✓ ${t('შემოწმებული','Lab-tested')}</span>`:''}${p.org?`<span class="bd org">${t('ორგანული','Organic')}</span>`:''}</div>
+    <button class="fav ${favs.has(p.id)?'on':''}" onclick="event.stopPropagation();fav(${p.id},this)" aria-label="Save">${heart}</button>
+   </div>
+   <div class="cb">
+    <div class="price"><b>${fmt(p.p)} ₾</b><small>/ ${un(p)}</small>${p.o?`<s>${fmt(p.o)}</s>`:''}</div>
+    <div class="ttl">${nm(p)}</div>
+    <div class="loc">${pin}${city(p)} · ${ago(p.d)}</div>
+    <div class="seller"><a href="#farm-${p.s}" onclick="event.stopPropagation()" style="text-decoration:underline;text-underline-offset:2px">${t(s.ka,s.en)}</a><span class="st">★ ${s.rt.toFixed(1)}<em> (${s.n})</em></span></div>
+    <button class="buy ${cart[p.id]?'done':''}" onclick="event.stopPropagation();addCart(${p.id},this)">${cart[p.id]?t('კალათაშია','In cart')+' · '+cart[p.id]:t('კალათაში','Add to cart')}</button>
+   </div></article>`;
+}
+
+/* ---------- state & filters ---------- */
+const F={cat:'all',q:'',reg:new Set(),min:'',max:'',lab:false,org:false,sale:false,sort:'pop',favOnly:false,seller:null};
+function filtered(){
+  let r=P.filter(p=>(F.cat==='all'||p.c===F.cat)
+   &&(!F.q||(p.ka+' '+p.en+' '+p.cka+' '+p.cen).toLowerCase().includes(F.q.toLowerCase()))
+   &&(!F.reg.size||F.reg.has(p.r))&&(F.min===''||p.p>=+F.min)&&(F.max===''||p.p<=+F.max)
+   &&(F.seller===null||p.s===F.seller)&&(!F.lab||p.lab)&&(!F.org||p.org)&&(!F.sale||p.o)&&(!F.favOnly||favs.has(p.id)));
+  const by={pop:(a,b)=>(b.vip||0)-(a.vip||0)||S[b.s].n-S[a.s].n,new:(a,b)=>a.d-b.d,cheap:(a,b)=>a.p-b.p,exp:(a,b)=>b.p-a.p,sale:(a,b)=>disc(b)-disc(a)};
+  return r.sort(by[F.sort]);
+}
+function renderGrid(){
+  const r=filtered();
+  $('grid').innerHTML=r.length?r.map(card).join(''):`<div class="empty"><b>${t('ვერაფერი მოიძებნა','Nothing found')}</b>${t('სცადე სხვა სიტყვა ან გაასუფთავე ფილტრები.','Try another word or clear the filters.')}</div>`;
+  $('cnt').innerHTML=t(`<b>${r.length}</b> განცხადება`,`<b>${r.length}</b> listing${r.length===1?'':'s'}`);
+  const ch=[];
+  if(F.cat!=='all'){const c=CATS.find(c=>c[0]===F.cat);ch.push([t(c[2],c[3]),"setCat('all')"])}
+  if(F.q)ch.push([`„${F.q}“`,"F.q='';$('q').value='';renderGrid()"]);
+  F.reg.forEach(r=>ch.push([reg(r),`F.reg.delete('${r}');renderRegions();renderGrid()`]));
+  if(F.lab)ch.push([t('შემოწმებული','Lab-tested'),"$('fLab').checked=false;F.lab=false;renderGrid()"]);
+  if(F.org)ch.push([t('ორგანული','Organic'),"$('fOrg').checked=false;F.org=false;renderGrid()"]);
+  if(F.sale)ch.push([t('ფასდაკლებით','On sale'),"$('fSale').checked=false;F.sale=false;renderGrid()"]);
+  if(F.seller!==null)ch.push([t(S[F.seller].ka,S[F.seller].en),"F.seller=null;renderGrid()"]);
+  if(F.favOnly)ch.push([t('რჩეული','Saved'),"F.favOnly=false;renderGrid()"]);
+  $('chips').innerHTML=ch.map(c=>`<span class="chip">${c[0]}<button onclick="${c[1]}" aria-label="Remove">×</button></span>`).join('');
+}
+function renderDeals(){$('deals').innerHTML=P.filter(p=>p.o||p.vip).sort((a,b)=>disc(b)-disc(a)).slice(0,5).map(card).join('')}
+function renderCats(){
+  $('cats').innerHTML=CATS.map(c=>`<button class="cat ${F.cat===c[0]?'on':''}" onclick="setCat('${c[0]}')"><span class="e">${c[1]}</span>${t(c[2],c[3])}</button>`).join('');
+  $('searchCat').innerHTML=CATS.map(c=>`<option value="${c[0]}" ${F.cat===c[0]?'selected':''}>${c[0]==='all'?t('ყველა კატეგორია','All categories'):t(c[2],c[3])}</option>`).join('');
+}
+function renderRegions(){
+  $('fRegion').innerHTML=Object.keys(REG).map(k=>`<label class="ck"><input type="checkbox" ${F.reg.has(k)?'checked':''} onchange="this.checked?F.reg.add('${k}'):F.reg.delete('${k}');renderGrid()">${reg(k)}<span class="c">${P.filter(p=>p.r===k).length}</span></label>`).join('');
+}
+function renderSort(){$('sort').innerHTML=SORTS.map(s=>`<option value="${s[0]}" ${F.sort===s[0]?'selected':''}>${t(s[1],s[2])}</option>`).join('')}
+function renderSellers(){$('sellers').innerHTML=S.slice(0,6).map((s,i)=>`<div class="sl" onclick="location.hash='farm-${i}'"><div class="av" style="background:${s.bg};color:${s.fg}">${t(s.ka,s.en).split(' ').map(w=>w[0]).join('').slice(0,2)}</div><b>${t(s.ka,s.en)}</b><div class="r">${reg(P.find(p=>p.s===i).r)}</div><div class="m"><span class="st">★ ${s.rt.toFixed(1)}</span><span>${t(`${P.filter(p=>p.s===i).length} განცხ.`,`${P.filter(p=>p.s===i).length} listings`)}</span></div></div>`).join('')}
+
+function setCat(c){F.cat=c;renderCats();renderGrid()}
+function sortBy(s){F.sort=s;renderSort();renderGrid()}
+function onlyLab(){F.lab=true;$('fLab').checked=true;renderGrid()}
+function sellerItems(i){F.seller=i;renderGrid();$('catalog').scrollIntoView({behavior:'smooth'})}
+function showFavs(){if(!favs.size){toast(t('რჩეულები ჯერ ცარიელია. დააჭირე გულს ნებისმიერ ბარათზე.','Nothing saved yet. Tap the heart on any card.'));return}F.favOnly=true;renderGrid();$('catalog').scrollIntoView({behavior:'smooth'})}
+function resetFilters(){Object.assign(F,{cat:'all',q:'',min:'',max:'',lab:false,org:false,sale:false,favOnly:false,seller:null});F.reg.clear();['q','pMin','pMax'].forEach(i=>$(i).value='');['fLab','fOrg','fSale'].forEach(i=>$(i).checked=false);renderCats();renderRegions();renderGrid()}
+
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();F.q=$('q').value.trim();F.cat=$('searchCat').value;renderCats();renderGrid();$('catalog').scrollIntoView({behavior:'smooth'})});
+$('q').addEventListener('input',e=>{F.q=e.target.value.trim();renderGrid()});
+$('searchCat').addEventListener('change',e=>setCat(e.target.value));
+$('sort').addEventListener('change',e=>sortBy(e.target.value));
+$('pMin').addEventListener('input',e=>{F.min=e.target.value;renderGrid()});
+$('pMax').addEventListener('input',e=>{F.max=e.target.value;renderGrid()});
+$('fLab').addEventListener('change',e=>{F.lab=e.target.checked;renderGrid()});
+$('fOrg').addEventListener('change',e=>{F.org=e.target.checked;renderGrid()});
+$('fSale').addEventListener('change',e=>{F.sale=e.target.checked;renderGrid()});
+
+/* ---------- favourites & cart ---------- */
+function fav(id,b){favs.has(id)?favs.delete(id):favs.add(id);b.classList.toggle('on');const n=$('favN');n.textContent=favs.size;n.classList.toggle('on',favs.size>0);
+  toast(favs.has(id)?t('დაემატა რჩეულებში','Saved'):t('წაიშალა რჩეულებიდან','Removed from saved'));if(F.favOnly)renderGrid()}
+function addCart(id,b,q=1){cart[id]=(cart[id]||0)+q;updCart();renderDeals();renderGrid();const p=P.find(p=>p.id===id);
+  toast(`<span>✓</span>${t('კალათაში დაემატა: ','Added to cart: ')}${nm(p)}`,true)}
+function updCart(){const n=Object.values(cart).reduce((a,b)=>a+b,0);$('cartN').textContent=n;$('cartN').classList.toggle('on',n>0)}
+function renderCart(){
+  const ids=Object.keys(cart).map(Number);
+  if(!ids.length){$('items').innerHTML=`<div class="d-empty"><div>🧺</div>${t('კალათა ცარიელია','Your cart is empty')}</div>`;$('df').innerHTML=`<button class="primary" onclick="closeAll()">${t('ყიდვის გაგრძელება','Continue shopping')}</button>`;return}
+  $('items').innerHTML=ids.map(id=>{const p=P.find(p=>p.id===id);return `<div class="it"><div class="im" style="background:${p.bg}">${img(p)}</div><div><b>${nm(p)}</b><small>${fmt(p.p)} ₾ / ${un(p)} · ${city(p)}</small><br><span class="qty"><button onclick="cq(${id},-1)" aria-label="−">−</button><span>${cart[id]}</span><button onclick="cq(${id},1)" aria-label="+">+</button></span></div><div class="sum">${fmt(p.p*cart[id])} ₾<button class="rm" onclick="cq(${id},-999)">${t('წაშლა','Remove')}</button></div></div>`}).join('');
+  const sub=ids.reduce((s,id)=>s+P.find(p=>p.id===id).p*cart[id],0),del=sub>=80?0:7;
+  $('df').innerHTML=`<div class="ln"><span>${t('პროდუქცია','Products')}</span><span class="num">${fmt(sub)} ₾</span></div><div class="ln"><span>${t('მიწოდება','Delivery')}</span><span class="num">${del?fmt(del)+' ₾':t('უფასო','Free')}</span></div>${del?`<div class="ln" style="color:var(--green)"><span>${t(`კიდევ ${fmt(80-sub)} ₾ და მიწოდება უფასოა`,`${fmt(80-sub)} ₾ more for free delivery`)}</span></div>`:''}<div class="tot"><span>${t('სულ','Total')}</span><b>${fmt(sub+del)} ₾</b></div><button class="primary" onclick="checkout()">${t('შეკვეთის გაფორმება','Checkout')}</button>`;
+}
+function cq(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updCart();renderCart();renderDeals();renderGrid()}
+function openCart(){renderCart();$('drawer').classList.add('on');shade.classList.add('on')}
+function checkout(){
+  if(!me){closeAll();openAuth('login',{note:t('შეკვეთის გასაფორმებლად შედი ან დარეგისტრირდი. კალათა შენახული დაგხვდება.','Log in or sign up to check out. Your cart will be kept.'),after:openCart});return}
+  const ids=Object.keys(cart).map(Number),sub=ids.reduce((s,id)=>s+P.find(p=>p.id===id).p*cart[id],0),del=sub>=80?0:7;
+  const o={n:2000+Math.floor(Math.random()*8000),d:'11.11.2026',items:ids.map(id=>{const p=P.find(p=>p.id===id);return nm(p)+' × '+cart[id]}).join(', '),sum:sub+del};
+  me.orders=[o,...(me.orders||[])];saveSession();const u=users.find(u=>u.id===me.id);if(u){u.orders=me.orders;saveUsers()}
+  closeAll();cart={};updCart();renderDeals();renderGrid();toast(t(`შეკვეთა #${o.n} გაფორმდა. ფერმერი მალე დაგიკავშირდება.`,`Order #${o.n} placed. The farmer will contact you soon.`))}
+
+/* ---------- quick view ---------- */
+function quick(id){
+  const p=P.find(p=>p.id===id),s=S[p.s],d=disc(p);let q=1;
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><div class="qv">
+   <div class="thumb" style="background:${p.bg}">${img(p)}<div class="badges">${d?`<span class="bd sale">−${d}%</span>`:''}${p.lab?`<span class="bd lab">✓ ${t('ლაბორატორიით შემოწმებული','Lab-tested')}</span>`:''}${p.org?`<span class="bd org">${t('ორგანული','Organic')}</span>`:''}</div></div>
+   <div class="info"><div class="loc">${pin}${city(p)}, ${reg(p.r)} · ${ago(p.d)}</div><h3>${nm(p)}</h3>
+    <div class="price"><b>${fmt(p.p)} ₾</b><small>/ ${un(p)}</small>${p.o?`<s>${fmt(p.o)} ₾</s>`:''}</div>
+    <dl><dt>${t('გამყიდველი','Seller')}</dt><dd><a href="#farm-${p.s}" onclick="closeAll()" style="color:var(--green);font-weight:600">${t(s.ka,s.en)}</a> <span style="color:var(--gold)">★ ${s.rt.toFixed(1)}</span> (${s.n})</dd>
+     <dt>${t('მარაგში','In stock')}</dt><dd class="num">${p.stock.toLocaleString('en-US')} ${un(p)}</dd>
+     <dt>${t('ლაბორატორია','Lab report')}</dt><dd>${p.lab?t('✓ დასკვნა მიმაგრებულია','✓ Report attached'):t('მოწმდება, შედეგი 2 დღეში','In testing, result in 2 days')}</dd>
+     <dt>${t('მიწოდება','Delivery')}</dt><dd>${t('თბილისში ხვალ, რეგიონებში 2–3 დღეში','Tomorrow in Tbilisi, 2–3 days to regions')}</dd></dl>
+    <div class="row"><span class="qty"><button onclick="qvq(-1)">−</button><span id="qvq">1</span><button onclick="qvq(1)">+</button></span><button class="primary" style="flex:1" onclick="addCart(${p.id},null,+$('qvq').textContent);closeAll()">${t('კალათაში დამატება','Add to cart')}</button></div>
+    <button class="reset" onclick="toast(t('გამყიდველის ნომერი: 5XX XX XX XX (დემო)','Seller phone: 5XX XX XX XX (demo)'))">${t('დაუკავშირდი გამყიდველს','Contact the seller')}</button>
+   </div></div>`;
+  $('modal').classList.add('on');shade.classList.add('on');
+}
+function qvq(d){const e=$('qvq');e.textContent=Math.max(1,+e.textContent+d)}
+
+/* ---------- forms ---------- */
+function openForm(k){
+  const regs=Object.keys(REG).map(r=>`<option>${reg(r)}</option>`).join(''),cats=CATS.slice(1).map(c=>`<option>${t(c[2],c[3])}</option>`).join('');
+  const f={
+   login:[t('შესვლა','Log in'),t('შედი ანგარიშზე, რომ შეკვეთები და რჩეულები შეინახო.','Log in to keep your orders and saved items.'),`<label>${t('ტელეფონი ან ელფოსტა','Phone or email')}</label><input required><label>${t('პაროლი','Password')}</label><input type="password" required>`,t('შესვლა','Log in')],
+   listing:[t('განცხადების დამატება','Post a listing'),t('განთავსება უფასოა. ლაბორატორიის ნიმუშს ჩვენ ავიღებთ.','Listing is free. We collect the lab sample.'),`<label>${t('რას ყიდი?','What are you selling?')}</label><input required placeholder="${t('მაგ. პომიდორი ვარდისფერი','e.g. pink tomatoes')}"><div class="two"><div><label>${t('კატეგორია','Category')}</label><select>${cats}</select></div><div><label>${t('რეგიონი','Region')}</label><select>${regs}</select></div></div><div class="two"><div><label>${t('ფასი, ₾','Price, ₾')}</label><input type="number" step="0.05" required></div><div><label>${t('რაოდენობა','Quantity')}</label><input type="number" required></div></div><label>${t('ტელეფონი','Phone')}</label><input type="tel" required placeholder="+995">`,t('გამოქვეყნება','Publish')],
+   biz:[t('ბიზნეს ანგარიში','Business account'),t('საბითუმო ფასები, ინვოისი და კვირის შეკვეთები.','Wholesale prices, invoices and weekly orders.'),`<label>${t('კომპანია','Company')}</label><input required><label>${t('ს/კ','Tax ID')}</label><input required><label>${t('ელფოსტა','Email')}</label><input type="email" required>`,t('გაგზავნა','Send')]
+  }[k];
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><form class="form" id="frm"><h3>${f[0]}</h3><p>${f[1]}</p>${f[2]}<button class="primary">${f[3]}</button></form>`;
+  $('mbox').style.maxWidth='520px';$('modal').classList.add('on');shade.classList.add('on');
+  $('frm').addEventListener('submit',e=>{e.preventDefault();closeAll();toast(t('მადლობა! ეს დემო ვერსიაა, მონაცემები არსად გაიგზავნა.','Thank you. This is a demo, so nothing was sent.'))});
+}
+const shade=$('shade'),filtersEl=$('filters');
+function closeAll(){['drawer','modal'].forEach(i=>$(i).classList.remove('on'));filtersEl.classList.remove('on');shade.classList.remove('on');$('mbox').style.maxWidth=''}
+shade.addEventListener('click',closeAll);
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeAll()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+if(matchMedia('(max-width:980px)').matches)document.querySelector('.filter-close').style.display='grid';
+
+/* ---------- slider ---------- */
+let si=0;const slides=[...document.querySelectorAll('.slide')],dots=[...document.querySelectorAll('#dots button')];
+function go(i){si=i;slides.forEach((s,k)=>s.classList.toggle('on',k===i));dots.forEach((d,k)=>d.classList.toggle('on',k===i))}
+dots.forEach((d,i)=>d.addEventListener('click',()=>{go(i);clearInterval(timer);timer=setInterval(()=>go((si+1)%3),6000)}));
+let timer=setInterval(()=>go((si+1)%3),6000);
+
+/* ---------- toast ---------- */
+let tt;function toast(m,html){const e=$('toastEl');html?e.innerHTML=m:e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2400)}
+
+
+/* ================= FARMER PROFILE + CABINET ================= */
+P.push(
+ {id:19,c:'veg',e:'🌶️',bg:'#fde4dc',ka:'წიწაკა ციცაკა, ცხარე',en:'Tsitsaka hot peppers',p:6.00,u:'kg',r:'kakheti',cka:'ყვარელი',cen:'Kvareli',s:0,lab:1,org:1,stock:120,d:2},
+ {id:20,c:'greens',e:'🌿',bg:'#e2f2e4',ka:'ტარხუნა',en:'Tarragon',p:1.20,u:'bunch',r:'kakheti',cka:'ყვარელი',cen:'Kvareli',s:0,lab:0,org:1,stock:260,d:1}
+);
+/* since, hectares, crops ka/en */
+const SX=[[2011,6,'პომიდორს, წიწაკას და მწვანილს','tomatoes, peppers and herbs'],[1998,14,'რქაწითელს და საფერავს','Rkatsiteli and Saperavi grapes'],[2005,9,'ვაშლს და მსხალს','apples and pears'],[2016,120,'კარტოფილს','potatoes'],[2019,2,'სათბურის მწვანილს','greenhouse herbs'],[2009,7,'თხილს და სიმინდს','hazelnuts and maize'],[2012,5,'მანდარინს და ფორთოხალს','mandarins and oranges'],[2014,3,'ყველს და მაწონს','cheese and matsoni'],[2010,0,'თაფლს და ლობიოს','honey and beans'],[2017,1,'კვერცხს','eggs'],[2008,11,'ბადრიჯანს და წიწაკას','aubergines and peppers'],[2013,4,'რძის ნაწარმს','dairy products']];
+const RV=[
+ ['თამარ კ.','Tamar K.',5,'პროდუქტი ზუსტად ისეთი იყო, როგორიც ფოტოზე. მეორე დღესვე მოიტანეს.','Exactly as pictured, and it arrived the next day.'],
+ ['კაფე „ბოსტანი“','Café Bostani',5,'სამი თვეა ყოველკვირეულად ვუკვეთავთ, ხარისხი სტაბილურია.','We have ordered weekly for three months. Quality is consistent.'],
+ ['გიორგი მ.','Giorgi M.',4,'კარგი პროდუქტია, ოღონდ შეფუთვა შეიძლება უკეთესი იყოს.','Good produce, though the packaging could be better.'],
+ ['ნათია ბ.','Natia B.',5,'მომწონს, რომ ლაბორატორიის დასკვნას ვხედავ. ბავშვებისთვის ვყიდულობ.','I like seeing the lab report. I buy for my kids.'],
+ ['სასტუმრო, სიღნაღი','Hotel, Sighnaghi',5,'საბითუმო შეკვეთა დროულად მოვიდა, ფერმერი ყოველთვის პასუხობს.','The wholesale order arrived on time, and the farmer always replies.'],
+ ['ლაშა ჭ.','Lasha Ch.',4,'გემრიელია და ბაზარზე იაფიც.','Tasty, and cheaper than the market.']
+];
+const ABOUT0=['ბაღი ბებიაჩემმა გააშენა, მე ორგანულ მეურნეობაზე 2018 წელს გადავედი. ადრე ნავთლუღის ბაზარზე ვყიდდი და ფასს გადამყიდველი ადგენდა. ახლა თბილისის რესტორნებთან და ოჯახებთან პირდაპირ ვმუშაობ.','My grandmother planted this garden, and I switched to organic farming in 2018. I used to sell at Navtlughi market, where a reseller set the price. Now I work directly with restaurants and families in Tbilisi.'];
+const sName=i=>t(S[i].ka,S[i].en), initials=s=>s.split(/[\s.]+/).filter(Boolean).map(w=>w[0]).join('').slice(0,2);
+const regLoc=r=>t(REG[r][0]+'ში',REG[r][1]);
+
+function renderFarm(i){
+  const s=S[i],x=SX[i],items=P.filter(p=>p.s===i),r=items[0].r,org=items.some(p=>p.org),labs=items.filter(p=>p.lab);
+  const rv=[0,1,2,3,4,5].map(k=>RV[(k+i)%RV.length]).slice(0,4);
+  const docs=[...(org?[[t('ორგანული წარმოების სერტიფიკატი','Organic production certificate'),t('მოქმედებს 2027 წლამდე','Valid until 2027')]]:[]),...labs.map((p,k)=>[t('ლაბორატორიული დასკვნა · ','Lab report · ')+nm(p),'№ AT-2026-'+(1100+p.id*7)])];
+  const about=i===0?t(...ABOUT0):t(`${sName(i)} ${x[0]} წლიდან მეურნეობს ${regLoc(r)}. მოჰყავს ${x[2]}. ყველა პარტია AgriTrust-ის პარტნიორ ლაბორატორიაში მოწმდება.`,`${sName(i)} has been farming in ${REG[r][1]} since ${x[0]}, growing ${x[3]}. Every lot is tested at an AgriTrust partner lab.`);
+  const dist=[[5,72],[4,21],[3,5],[2,1],[1,1]];
+  $('view-farm').innerHTML=`
+  <div class="crumbs"><a href="#market">${t('მთავარი','Home')}</a>›<span>${t('ფერმერები','Farmers')}</span>›<span>${sName(i)}</span></div>
+  <div class="fp-head"><div class="fp-cover"></div>
+   <div class="fp-main"><div class="fp-av" style="background:${s.bg};color:${s.fg}">${initials(sName(i))}</div>
+    <div class="fp-id"><h1>${sName(i)} <span class="vbadge">✓ ${t('დადასტურებული ფერმერი','Verified farmer')}</span></h1>
+     <div class="m"><span>📍 ${city(items[0])}, ${reg(r)}</span><span>🗓 ${t(`მეურნეობს ${x[0]} წლიდან`,`Farming since ${x[0]}`)}</span>${x[1]?`<span>🌱 ${x[1]} ${t('ჰა','ha')}</span>`:''}<span>⏱ ${t('პასუხობს ~1 საათში','Replies in ~1 hour')}</span></div></div>
+    <div class="fp-act"><button class="btn2 o" onclick="toast(t('ფერმერს გამოიწერე. ახალ პროდუქტზე შეტყობინებას მიიღებ.','Following. You will be notified about new produce.'))">${t('გამოწერა','Follow')}</button><button class="btn2 g" onclick="toast(t('გამყიდველის ნომერი: 5XX XX XX XX (დემო)','Seller phone: 5XX XX XX XX (demo)'))">${t('დაკავშირება','Contact')}</button></div></div>
+   <div class="fp-stats"><div><b>★ ${s.rt.toFixed(1)}</b><span>${t(`${s.n} შეფასება`,`${s.n} reviews`)}</span></div><div><b>${(s.n*7+40).toLocaleString('en-US')}</b><span>${t('გაყიდული შეკვეთა','orders sold')}</span></div><div><b>${items.length}</b><span>${t('აქტიური განცხადება','active listings')}</span></div><div><b>${docs.length}</b><span>${t('დადასტურებული დოკუმენტი','verified documents')}</span></div></div>
+  </div>
+  <div class="fp-grid"><div class="fp-side">
+    <div class="panel about"><h4>${t('ფერმის შესახებ','About the farm')}</h4><p>${about}</p><div class="chips2">${org?`<span>${t('ორგანული','Organic')}</span>`:''}<span>${t('წვეთოვანი მორწყვა','Drip irrigation')}</span><span>${t('საკუთარი კომპოსტი','Own compost')}</span><span>${t('მიწოდება თბილისში','Delivers to Tbilisi')}</span></div></div>
+    <div class="panel"><h4>${t('ხარისხის დოკუმენტები','Quality documents')}<small>${t('დამოუკიდებლად გადამოწმებული','independently verified')}</small></h4>
+     ${docs.map(d=>`<div class="doc"><span class="di"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span><div><b>${d[0]}</b><small>${d[1]}</small></div><span class="pill2 st-ok">✓</span></div>`).join('')}</div>
+   </div>
+   <div class="stack">
+    <div><div class="sh"><h3>${t('პროდუქცია','Produce')}</h3></div><div class="grid">${items.map(card).join('')}</div></div>
+    <div class="panel"><h4>${t('მყიდველების შეფასებები','Buyer reviews')}</h4>
+     <div class="rv-sum"><div class="big">${s.rt.toFixed(1)}</div><div class="rv-bars">${dist.map(d=>`<div><span>${d[0]}</span><i><em style="width:${d[1]}%"></em></i><span>${d[1]}%</span></div>`).join('')}</div></div>
+     ${rv.map((v,k)=>`<div class="rv"><div class="rv-h"><b>${t(v[0],v[1])}</b><small>${['2 დღის წინ','1 კვირის წინ','2 კვირის წინ','1 თვის წინ'][k]&&t(['2 დღის წინ','1 კვირის წინ','2 კვირის წინ','1 თვის წინ'][k],['2 days ago','1 week ago','2 weeks ago','1 month ago'][k])}</small></div><div class="stars">${'★'.repeat(v[2])}${'☆'.repeat(5-v[2])}</div><p>${t(v[3],v[4])}</p></div>`).join('')}
+    </div>
+   </div></div>`;
+}
+
+/* ---------------- cabinet data ---------------- */
+const ME=0;
+const ORD=[
+ {n:1048,b:['კაფე „ბოსტანი“, თბილისი','Café Bostani, Tbilisi'],i:['პომიდორი 25 კგ, ტარხუნა 20 კონა','Tomatoes 25 kg, tarragon 20 bunches'],sum:129,st:0,d:['დღეს 09:40','Today 09:40']},
+ {n:1047,b:['ოჯახი, ვაკე','Household, Vake'],i:['პომიდორი 5 კგ','Tomatoes 5 kg'],sum:21,st:0,d:['დღეს 08:15','Today 08:15']},
+ {n:1045,b:['სასტუმრო, სიღნაღი','Hotel, Sighnaghi'],i:['პომიდორი 40 კგ, ციცაკა 5 კგ','Tomatoes 40 kg, hot peppers 5 kg'],sum:198,st:1,d:['გუშინ','Yesterday']},
+ {n:1041,b:['ოჯახი, საბურთალო','Household, Saburtalo'],i:['ტარხუნა 10 კონა','Tarragon 10 bunches'],sum:12,st:2,d:['09.11','09.11']},
+ {n:1038,b:['რესტორანი, ვერა','Restaurant, Vera'],i:['პომიდორი 30 კგ','Tomatoes 30 kg'],sum:126,st:3,d:['07.11','07.11']}
+];
+const OST=[['ახალი','New','st-new'],['მზადდება','Packing','st-pack'],['გზაშია','Shipped','st-ship'],['ჩაბარდა','Delivered','st-done']];
+const OBTN=[['მიღება','Accept'],['გაგზავნა','Ship'],['ჩაბარდა','Delivered']];
+const DOCS=[
+ {n:['ორგანული წარმოების სერტიფიკატი','Organic production certificate'],m:['სერტიფიკაციის ორგანო · მოქმედებს 03.2027-მდე','Certification body · valid until 03.2027'],f:'organic-cert-2026.pdf',st:'ok',v:['გადამოწმდა 12.03.2026','Verified 12.03.2026']},
+ {n:['ლაბორატორიული დასკვნა · პომიდორი','Lab report · tomatoes'],m:['№ AT-2026-1184 · 04.11.2026','No. AT-2026-1184 · 04.11.2026'],f:'AT-2026-1184.pdf',st:'ok',v:['გადამოწმდა 05.11.2026','Verified 05.11.2026'],pid:1},
+ {n:['ლაბორატორიული დასკვნა · ციცაკა','Lab report · hot peppers'],m:['№ AT-2026-1192 · 06.11.2026','No. AT-2026-1192 · 06.11.2026'],f:'AT-2026-1192.pdf',st:'ok',v:['გადამოწმდა 07.11.2026','Verified 07.11.2026'],pid:19}
+];
+const WX=[['ოთხ','Wed','☀️',13,4],['ხუთ','Thu','🌧️',8,-1],['პარ','Fri','⛅',10,1],['შაბ','Sat','☀️',12,3],['კვი','Sun','☀️',14,5]];
+const AIA=[
+ [/ყინვ|ცივ|სიცივ|frost|cold|freez/i,'ხუთშაბათ ღამით ყვარელში −1°C-ია მოსალოდნელი. ღია გრუნტის წიწაკა აგროტექსტილით დაფარე, სათბურში კი გათბობა 22:00-დან ჩართე, რომ ტემპერატურა 10°C-ზე ქვემოთ არ ჩამოვიდეს.','Thursday night Kvareli expects −1°C. Cover the open-field peppers with fleece and turn the greenhouse heating on from 22:00 so it stays above 10°C.','ყვარელის 5-დღიანი პროგნოზი','Kvareli 5-day forecast'],
+ [/სიდამპ|ობ|ლაქ|სოკო|დაავად|rot|mold|mould|botrytis|disease|spot/i,'სათბურში ტენიანობა 85%-ს აღემატება, ეს ნაცრისფერი სიდამპლის რისკს ზრდის. დღისით 2–3 საათით გააღე სავენტილაციო ფანჯრები, დაზიანებული ფოთლები ამოიღე და მორწყე მხოლოდ დილით.','Greenhouse humidity is above 85%, which raises the risk of grey mould. Open the vents for 2–3 hours during the day, remove damaged leaves and water only in the morning.','სათბურის სენსორი, ბოლო 48 სთ','Greenhouse sensor, last 48 h'],
+ [/სასუქ|გამოკვ|ნიადაგ|აზოტ|კალიუმ|fertil|soil|nitrogen|potass/i,'ბოლო ანალიზით pH 6.8-ია, ფოსფორი საკმარისია. ნაყოფის ზრდის ფაზაში კალიუმიანი გამოკვება 10 დღეში ერთხელ ჩაატარე, აზოტი კი შეამცირე, რომ მცენარემ მწვანე მასა ნაყოფის ხარჯზე არ გაზარდოს.','Your last soil test showed pH 6.8 with enough phosphorus. During fruiting, feed potassium every 10 days and cut back nitrogen so the plants do not grow leaves at the expense of fruit.','ნიადაგის ანალიზი, 14.09.2026','Soil test, 14.09.2026'],
+ [/მორწყ|წყალ|მოვრწყ|water|irrig/i,'ნოემბერში სათბურის პომიდორს კვირაში 2 მორწყვა სჭირდება, დაახლოებით 3 ლ ძირზე. ღრუბლიან დღეებში მორწყვა გამოტოვე, ხუთშაბათს კი წვიმაა.','In November greenhouse tomatoes need watering twice a week, about 3 L per plant. Skip cloudy days, and it rains on Thursday.','მორწყვის ჟურნალი, პროგნოზი','Irrigation log, forecast'],
+ [/მოსავ|კრეფ|მოვკრ|harvest|pick/i,'B რიგის პომიდორი 4–5 დღეში შეიფერება. დეკემბრის ბოლოს მოთხოვნა მაქსიმუმზე იქნება, ამიტომ თუ ამინდი ნებას მოგცემს, ნაწილი 20 დეკემბრის შემდეგ მოსაკრეფად დატოვე.','Row B tomatoes will colour in 4–5 days. Demand peaks at the end of December, so if the weather allows, keep part of the crop for after 20 December.','მოთხოვნის პროგნოზი','Demand forecast'],
+ [/ფას|გავყიდ|გაყიდ|ღირ|price|sell/i,'ფასის რეკომენდაციით პომიდვრისთვის 4.40 ₾/კგ ოპტიმალურია: მოთხოვნა იზრდება და შენს პარტიას დასკვნა აქვს. დეტალები „ფასის რეკომენდაციის“ გვერდზეა.','The pricing tool suggests 4.40 ₾/kg for tomatoes: demand is rising and your lot has a lab report. See the Pricing page for details.','ფასის რეკომენდაცია','Pricing tool']
+];
+const AIS=[['ხუთშაბათს ყინვაა, რა ვქნა?','Frost on Thursday, what should I do?'],['ფოთლებზე ნაცრისფერი ლაქებია','Grey spots on the leaves'],['როდის მოვკრიფო პომიდორი?','When should I pick the tomatoes?'],['რა სასუქი შევიტანო?','Which fertiliser should I use?']];
+let chatLog=null;
+
+const WEEKS=['24.08','31.08','07.09','14.09','21.09','28.09','05.10','12.10','19.10','26.10','02.11','09.11','16.11','23.11','30.11','07.12','14.12','21.12','28.12','04.01'];
+const FC={
+ 1:{h:[210,230,250,240,225,200,190,185,200,215,230,245],f:[260,280,300,330,380,420,360,240],u:'kg',
+    dr:[['📈','მოთხოვნა ახალი წლისთვის იზრდება','Demand rises ahead of New Year','ბოლო 3 წლის მონაცემებით 21 დეკ – 3 იან პომიდვრის გაყიდვა საშუალოდ 70%-ით მატულობს.','Over the last 3 years tomato sales rose about 70% between 21 Dec and 3 Jan.'],['🍽️','რესტორნების შეკვეთები','Restaurant orders','შენი 4 მუდმივი მყიდველი კვირაში ~95 კგ-ს უკვეთავს.','Your 4 regular buyers order ~95 kg a week.'],['🌡️','ღია გრუნტის სეზონი დასრულდა','Field season is over','ბაზარზე მიწოდება მცირდება, სათბურის პროდუქცია უფრო მოთხოვნადია.','Market supply drops, so greenhouse produce is in higher demand.']],
+    rec:['მომდევნო 8 კვირაში ~2,570 კგ გაიყიდება, ეს წინა 8 კვირაზე 52%-ით მეტია. პიკი 21–27 დეკემბერია (~420 კგ). ამ კვირისთვის მინიმუმ 400 კგ მარაგი დაიტოვე.','About 2,570 kg should sell over the next 8 weeks, 52% more than the previous 8. The peak is 21–27 December (~420 kg). Keep at least 400 kg in stock for that week.']},
+ 19:{h:[40,48,55,60,58,52,45,40,38,36,35,34],f:[33,32,34,38,44,46,40,30],u:'kg',
+    dr:[['🫙','საკონსერვო სეზონი დასრულდა','Preserving season is over','სექტემბერ-ოქტომბრის აჯიკის სეზონის შემდეგ მოთხოვნა ეცემა.','Demand falls after the September–October ajika season.'],['🎄','სადღესასწაულო სუფრა','Holiday tables','დეკემბრის ბოლოს მცირე ზრდა მოსალოდნელია.','A small rise is expected at the end of December.'],['🧊','ხმელი წიწაკა','Dried peppers','ნაწილის გაშრობა და ზამთარში გაყიდვა უფრო მომგებიანი იქნება.','Drying part of the crop and selling it in winter will pay better.']],
+    rec:['მომდევნო 8 კვირაში ~300 კგ გაიყიდება. ახლანდელი 120 კგ მარაგი საკმარისია, დარჩენილი მოსავლის 30–40% გაშრობისთვის გადადე.','About 300 kg should sell in the next 8 weeks. Your 120 kg stock is enough. Set 30–40% of the remaining crop aside for drying.']},
+ 20:{h:[90,95,100,110,105,100,96,92,95,98,102,108],f:[112,118,125,135,160,190,150,100],u:'bunch',
+    dr:[['🎄','საახალწლო კერძები','New Year dishes','ჩაქაფულისა და სალათებისთვის ტარხუნაზე მოთხოვნა დეკემბრის ბოლოს 75%-ით იზრდება.','Demand for tarragon for chakapuli and salads rises 75% at the end of December.'],['🧪','ლაბორატორიის დასკვნა','Lab report','დასკვნის შემდეგ პარტია „შემოწმებული“ ნიშანს მიიღებს და რესტორნები მეტს შეუკვეთავენ.','Once the report is in, the lot gets the Lab-tested badge and restaurants order more.']],
+    rec:['მომდევნო 8 კვირაში ~1,090 კონა გაიყიდება. სათბურში ახალი ნათესი ახლავე დათესე, რომ 21 დეკემბრისთვის მოსავალი მზად იყოს.','About 1,090 bunches should sell in the next 8 weeks. Sow a new greenhouse batch now so it is ready by 21 December.']}
+};
+const PR={
+ 1:{cost:1.90,mkt:4.00,trend:18,vol:240,comp:[['ყვარელი, ორგანული','Kvareli, organic',4.40],['გურჯაანი, სათბური','Gurjaani, greenhouse',3.80],['მარნეული','Marneuli',3.60],['ნავთლუღის ბაზარი (საშ.)','Navtlughi market (avg)',4.10]]},
+ 19:{cost:2.80,mkt:5.80,trend:-6,vol:35,comp:[['საგარეჯო','Sagarejo',5.50],['ლანჩხუთი','Lanchkhuti',6.50],['ნავთლუღის ბაზარი (საშ.)','Navtlughi market (avg)',5.70]]},
+ 20:{cost:0.45,mkt:1.10,trend:12,vol:105,comp:[['ლაგოდეხი, სათბური','Lagodekhi, greenhouse',1.00],['მცხეთა','Mtskheta',1.30],['ნავთლუღის ბაზარი (საშ.)','Navtlughi market (avg)',1.10]]}
+};
+let fcP=1,prP=1,prPrice=null;
+const MONTHS=[['დეკ','Dec'],['იან','Jan'],['თებ','Feb'],['მარ','Mar'],['აპრ','Apr'],['მაი','May'],['ივნ','Jun'],['ივლ','Jul'],['აგვ','Aug'],['სექ','Sep'],['ოქტ','Oct'],['ნოე','Nov']];
+const INC=[3100,2600,2200,2900,3800,5200,7400,8900,9600,8200,6300,4100];
+const EXP=[1800,1500,1900,2600,3100,3300,3500,3800,3600,3200,2700,1900];
+const ECAT=[['fert','სასუქი და დაცვის საშუალებები','Fertiliser and crop protection',.22],['seed','თესლი და ჩითილი','Seeds and seedlings',.09],['labor','მუშახელი','Labour',.31],['fuel','საწვავი და ტრანსპორტი','Fuel and transport',.17],['water','მორწყვა და გათბობა','Irrigation and heating',.08],['lab','ლაბორატორია, სერტიფიკაცია','Lab and certification',.05],['fee','პლატფორმის საკომისიო','Platform fees',.08]];
+const TX=[
+ {d:'10.11',in:1,c:'sale',n:['შეკვეთა #1045','Order #1045'],a:198},{d:'09.11',in:0,c:'fuel',n:['დიზელი, მიწოდება თბილისში','Diesel, Tbilisi delivery'],a:85},
+ {d:'08.11',in:1,c:'sale',n:['შეკვეთა #1041','Order #1041'],a:12},{d:'07.11',in:0,c:'lab',n:['ლაბორატორია, AT-2026-1192','Lab test, AT-2026-1192'],a:60},
+ {d:'05.11',in:0,c:'water',n:['სათბურის გათბობა','Greenhouse heating'],a:240},{d:'04.11',in:1,c:'sale',n:['შეკვეთა #1038','Order #1038'],a:126},{d:'03.11',in:0,c:'labor',n:['მუშახელი, 4 დღე','Labour, 4 days'],a:400}
+];
+const catName=c=>{if(c==='sale')return t('გაყიდვა','Sale');const x=ECAT.find(e=>e[0]===c);return x?t(x[1],x[2]):c};
+
+/* ---------------- charts ---------------- */
+const NS='http://www.w3.org/2000/svg';
+function niceMax(v){const p=Math.pow(10,Math.floor(Math.log10(v)));return Math.ceil(v/p/ (v/p>5?1:.5))*p*(v/p>5?1:.5)}
+function tipShow(box,x,y,html){let t=box.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';box.appendChild(t)}t.innerHTML=html;t.style.left=x+'px';t.style.top=y+'px';t.classList.add('on')}
+function tipHide(box){const t=box.querySelector('.tip');if(t)t.classList.remove('on')}
+function grid(W,H,L,T,B,max,fmtY){let g='';for(let k=0;k<=4;k++){const y=T+(H-T-B)*(1-k/4);g+=`<line class="gl" x1="${L}" x2="${W-8}" y1="${y}" y2="${y}"/><text class="ax" x="${L-8}" y="${y+4}" text-anchor="end">${fmtY(max*k/4)}</text>`}return g}
+function barPath(x,y,w,h,r){r=Math.min(r,h,w/2);return `M${x},${y+h}V${y+r}Q${x},${y} ${x+r},${y}H${x+w-r}Q${x+w},${y} ${x+w},${y+r}V${y+h}Z`}
+
+function forecastChart(el,d){
+  const W=Math.max(320,el.clientWidth||720),H=270,L=46,T=14,B=28,all=[...d.h,...d.f],n=all.length;
+  const hi=d.f.map((v,k)=>Math.round(v*(1+.06+.015*k))),lo=d.f.map((v,k)=>Math.round(v*(1-.06-.015*k)));
+  const max=niceMax(Math.max(...hi)),X=i=>L+(W-L-12)*i/(n-1),Y=v=>T+(H-T-B)*(1-v/max);
+  const hp=d.h.map((v,i)=>`${i?'L':'M'}${X(i)},${Y(v)}`).join('');
+  const fi=d.h.length-1,fp=`M${X(fi)},${Y(d.h[fi])}`+d.f.map((v,k)=>`L${X(fi+1+k)},${Y(v)}`).join('');
+  const bandPts=[[X(fi),Y(d.h[fi])],...hi.map((v,k)=>[X(fi+1+k),Y(v)]),...lo.map((v,k)=>[X(fi+1+k),Y(v)]).reverse()];
+  const bandD='M'+bandPts.map(p=>p.join(',')).join('L')+'Z';
+  let xl='';WEEKS.forEach((w,i)=>{if(i%2===0)xl+=`<text class="ax" x="${X(i)}" y="${H-8}" text-anchor="middle">${w}</text>`});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('მოთხოვნის პროგნოზი','Demand forecast')}">${grid(W,H,L,T,B,max,v=>Math.round(v))}${xl}
+   <path d="${bandD}" fill="#18803f" opacity=".12"/>
+   <line x1="${X(fi)}" x2="${X(fi)}" y1="${T}" y2="${H-B}" stroke="#868d87" stroke-dasharray="3 3"/><text class="lbl" x="${X(fi)+6}" y="${T+10}">${t('დღეს','Today')}</text>
+   <path d="${hp}" fill="none" stroke="#18803f" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+   <path d="${fp}" fill="none" stroke="#18803f" stroke-width="2" stroke-dasharray="6 5" stroke-linejoin="round" stroke-linecap="round"/>
+   <line class="xh" y1="${T}" y2="${H-B}" stroke="#1c211d" stroke-width="1" opacity="0"/><circle class="xd" r="5" fill="#18803f" stroke="#fff" stroke-width="2" opacity="0"/>
+   <rect x="${L}" y="${T}" width="${W-L-12}" height="${H-T-B}" fill="transparent" class="hit"/></svg>`;
+  const svg=el.querySelector('svg'),xh=svg.querySelector('.xh'),xd=svg.querySelector('.xd'),u=t(...U[d.u]);
+  svg.querySelector('.hit').addEventListener('mousemove',e=>{const r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)*W/r.width;const i=Math.max(0,Math.min(n-1,Math.round((sx-L)/(W-L-12)*(n-1))));const v=all[i];
+    xh.setAttribute('x1',X(i));xh.setAttribute('x2',X(i));xh.setAttribute('opacity',.35);xd.setAttribute('cx',X(i));xd.setAttribute('cy',Y(v));xd.setAttribute('opacity',1);
+    const f=i>fi,k=i-fi-1;tipShow(el,X(i)*r.width/W,Y(v)*r.height/H-12,`${t('კვირა','Week of')} ${WEEKS[i]}<br><b>${v.toLocaleString('en-US')} ${u}</b> ${f?t('პროგნოზი','forecast'):t('ფაქტი','actual')}${f?`<br>${t('დიაპაზონი','Range')}: ${lo[k]}–${hi[k]}`:''}`)});
+  svg.querySelector('.hit').addEventListener('mouseleave',()=>{xh.setAttribute('opacity',0);xd.setAttribute('opacity',0);tipHide(el)});
+}
+
+function financeChart(el){
+  const W=Math.max(320,el.clientWidth||720),H=270,L=52,T=14,B=28,n=12,max=niceMax(Math.max(...INC,...EXP)),gw=(W-L-12)/n,bw=Math.min(18,(gw-10)/2);
+  const Y=v=>T+(H-T-B)*(1-v/max);let bars='',hits='';
+  for(let i=0;i<n;i++){const x0=L+gw*i+(gw-(bw*2+2))/2;
+    bars+=`<path d="${barPath(x0,Y(INC[i]),bw,H-B-Y(INC[i]),4)}" fill="#2a78d6"/><path d="${barPath(x0+bw+2,Y(EXP[i]),bw,H-B-Y(EXP[i]),4)}" fill="#eb6834"/><text class="ax" x="${L+gw*i+gw/2}" y="${H-8}" text-anchor="middle">${t(...MONTHS[i])}</text>`;
+    hits+=`<rect data-i="${i}" x="${L+gw*i}" y="${T}" width="${gw}" height="${H-T-B}" fill="transparent"/>`}
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('შემოსავალი და ხარჯი თვეების მიხედვით','Income and expenses by month')}">${grid(W,H,L,T,B,max,v=>v>=1000?(v/1000)+'k':v)}<rect class="hl" y="${T}" height="${H-T-B}" width="${gw}" fill="#1c211d" opacity="0"/>${bars}${hits}</svg>`;
+  const svg=el.querySelector('svg'),hl=svg.querySelector('.hl');
+  svg.querySelectorAll('rect[data-i]').forEach(r=>{r.addEventListener('mouseenter',()=>{const i=+r.dataset.i,b=svg.getBoundingClientRect();hl.setAttribute('x',L+gw*i);hl.setAttribute('opacity',.04);
+    tipShow(el,(L+gw*i+gw/2)*b.width/W,Y(Math.max(INC[i],EXP[i]))*b.height/H-10,`<b>${t(...MONTHS[i])}</b><br><i style="background:#2a78d6"></i>${t('შემოსავალი','Income')}: <b>${INC[i].toLocaleString('en-US')} ₾</b><br><i style="background:#eb6834"></i>${t('ხარჯი','Expenses')}: <b>${EXP[i].toLocaleString('en-US')} ₾</b><br>${t('მოგება','Profit')}: <b>${(INC[i]-EXP[i]).toLocaleString('en-US')} ₾</b>`)});
+    r.addEventListener('mouseleave',()=>{hl.setAttribute('opacity',0);tipHide(el)})});
+}
+
+function profitChart(el,d,rec,cur){
+  const W=Math.max(320,el.clientWidth||720),H=230,L=52,T=14,B=28,e=1.8,lo=+(d.mkt*.7).toFixed(2),hi=+(d.mkt*1.4).toFixed(2),N=60;
+  const vol=p=>d.vol*Math.pow(p/rec,-e),prof=p=>(p-d.cost)*vol(p);
+  const pts=[...Array(N+1)].map((_,k)=>{const p=lo+(hi-lo)*k/N;return[p,prof(p)]});const max=niceMax(Math.max(...pts.map(p=>p[1])));
+  const X=p=>L+(W-L-12)*(p-lo)/(hi-lo),Y=v=>T+(H-T-B)*(1-Math.max(0,v)/max);
+  let xl='';for(let k=0;k<=6;k++){const p=lo+(hi-lo)*k/6;xl+=`<text class="ax" x="${X(p)}" y="${H-8}" text-anchor="middle">${p.toFixed(2)}</text>`}
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${t('კვირის მოგება ფასის მიხედვით','Weekly profit by price')}">${grid(W,H,L,T,B,max,v=>Math.round(v))}${xl}
+   <line x1="${X(rec)}" x2="${X(rec)}" y1="${T}" y2="${H-B}" stroke="#18803f" stroke-dasharray="4 4"/><text class="lbl" x="${X(rec)+6}" y="${T+10}">${t('რეკომენდებული','Recommended')} ${fmt(rec)}</text>
+   <path d="${pts.map((p,k)=>`${k?'L':'M'}${X(p[0])},${Y(p[1])}`).join('')}" fill="none" stroke="#18803f" stroke-width="2" stroke-linecap="round"/>
+   <circle cx="${X(cur)}" cy="${Y(prof(cur))}" r="6" fill="#1c211d" stroke="#fff" stroke-width="2"/>
+   <line class="xh" y1="${T}" y2="${H-B}" stroke="#1c211d" opacity="0"/><rect class="hit" x="${L}" y="${T}" width="${W-L-12}" height="${H-T-B}" fill="transparent"/></svg>`;
+  const svg=el.querySelector('svg'),xh=svg.querySelector('.xh');
+  svg.querySelector('.hit').addEventListener('mousemove',ev=>{const r=svg.getBoundingClientRect(),sx=(ev.clientX-r.left)*W/r.width,p=Math.max(lo,Math.min(hi,lo+(sx-L)/(W-L-12)*(hi-lo)));
+    xh.setAttribute('x1',X(p));xh.setAttribute('x2',X(p));xh.setAttribute('opacity',.3);
+    tipShow(el,X(p)*r.width/W,Y(prof(p))*r.height/H-12,`${t('ფასი','Price')} <b>${fmt(p)} ₾</b><br>${t('გაყიდვა','Sales')}: <b>${Math.round(vol(p))}</b> / ${t('კვირა','week')}<br>${t('მოგება','Profit')}: <b>${Math.round(prof(p))} ₾</b>`)});
+  svg.querySelector('.hit').addEventListener('mouseleave',()=>{xh.setAttribute('opacity',0);tipHide(el)});
+}
+
+/* ---------------- cabinet views ---------------- */
+const myP=()=>P.filter(p=>p.s===ME);
+const recPrice=id=>{const d=PR[id],p=P.find(p=>p.id===id);let r=d.mkt*(1+((p.lab||p.org)?.05:0)+d.trend*.25/100);r=Math.max(r,d.cost*1.3);return Math.round(r*20)/20};
+const TABS=[['overview','📊','მიმოხილვა','Overview'],['sales','🧺','გაყიდვები','Sales'],['quality','🛡️','ხარისხის დადასტურება','Quality checks'],['assistant','🤖','აგროასისტენტი','Agro assistant',1],['forecast','📈','მოთხოვნის პროგნოზი','Demand forecast',1],['pricing','🏷️','ფასის რეკომენდაცია','Pricing advice',1],['finance','💰','შემოსავალი და ხარჯი','Income & costs']];
+let cabTab='overview';
+function cabShell(inner){
+  const nNew=ORD.filter(o=>o.st===0).length,s=S[ME];
+  return `<div class="crumbs"><a href="#market">${t('მთავარი','Home')}</a>›<span>${t('ფერმერის კაბინეტი','Farmer dashboard')}</span></div>
+  <div class="cab"><aside class="cab-nav"><div class="cab-me"><span class="av2" style="background:${s.bg};color:${s.fg}">${initials(uName())}</span><div><b>${uName()}</b>${me.demo?`<a href="#farm-${ME}">${t('საჯარო პროფილი →','Public profile →')}</a>`:`<span style="font-size:12.5px;color:var(--muted)">${esc(me.farm||'')}</span>`}</div></div>
+   <nav>${TABS.map(x=>`<a href="#cabinet-${x[0]}" class="${cabTab===x[0]?'on':''}"><span>${x[1]}</span>${t(x[2],x[3])}${x[4]?'<span class="ai-tag">AI</span>':''}${x[0]==='sales'&&nNew?`<span class="cnt">${nNew}</span>`:''}</a>`).join('')}</nav></aside>
+   <div id="cabBody">${me.demo?'':`<div class="demo-note">${t('ახალი ანგარიშია, ამიტომ კაბინეტში სადემონსტრაციო მონაცემები ჩანს. შენი რეალური გაყიდვები, პროგნოზები და ფინანსები აქ პირველი შეკვეთების შემდეგ გამოჩნდება.','This is a new account, so the dashboard shows sample data. Your real sales, forecasts and finances will appear here after your first orders.')}</div>`}${inner}</div></div>`;
+}
+const head=(h,p,right='')=>`<div class="cab-h"><div><h2>${h}</h2><p>${p}</p></div>${right}</div>`;
+const yr=()=>({inc:INC.reduce((a,b)=>a+b,0),exp:EXP.reduce((a,b)=>a+b,0)});
+
+function vOverview(){
+  const y=yr(),act=ORD.filter(o=>o.st<3).length,tp=P.find(p=>p.id===1);
+  return head(t(`გამარჯობა, ${uFirst()} 👋`,`Hello, ${uFirst()} 👋`),t('ოთხშაბათი, 11 ნოემბერი · ყვარელი, ☀️ 13°','Wednesday, 11 November · Kvareli, ☀️ 13°'),`<a href="#cabinet-sales" class="btn2 g" onclick="setTimeout(()=>openListing(),50)">＋ ${t('ახალი განცხადება','New listing')}</a>`)+
+  `<div class="kpis"><div class="kpi"><span>${t('ნოემბრის შემოსავალი','November income')}</span><b>${INC[11].toLocaleString('en-US')} ₾</b><small>${t('11 დღეში','in 11 days')}</small></div>
+   <div class="kpi"><span>${t('აქტიური შეკვეთები','Active orders')}</span><b>${act}</b><small class="up">${t(`${ORD.filter(o=>o.st===0).length} ახალი`,`${ORD.filter(o=>o.st===0).length} new`)}</small></div>
+   <div class="kpi"><span>${t('წმინდა მოგება, 12 თვე','Net profit, 12 months')}</span><b>${(y.inc-y.exp).toLocaleString('en-US')} ₾</b><small class="up">${t('მარჟა','Margin')} ${Math.round((y.inc-y.exp)/y.inc*100)}%</small></div>
+   <div class="kpi"><span>${t('მყიდველების შეფასება','Buyer rating')}</span><b>★ ${S[ME].rt.toFixed(1)}</b><small>${t(`${S[ME].n} შეფასება`,`${S[ME].n} reviews`)}</small></div></div>
+  <div class="two-col"><div class="panel"><h4>${t('AI რჩევები დღეისთვის','AI suggestions for today')}<span class="ai-tag">AI</span></h4>
+    <div class="insight"><span class="ii" style="background:#fdecea">🥶</span><div><b>${t('ხუთშაბათ ღამით −1°C','−1°C on Thursday night')}</b><p>${t('ღია გრუნტის წიწაკა დაფარე, სათბურში გათბობა 22:00-დან ჩართე.','Cover the field peppers and turn the greenhouse heating on from 22:00.')}</p><a href="#cabinet-assistant">${t('ასისტენტთან გადასვლა →','Open assistant →')}</a></div></div>
+    <div class="insight"><span class="ii" style="background:#e7f4ec">📈</span><div><b>${t('პომიდორზე მოთხოვნა დეკემბრის ბოლოს 70%-ით გაიზრდება','Tomato demand will rise 70% in late December')}</b><p>${t('21–27 დეკემბრისთვის ~420 კგ დაგჭირდება.','You will need ~420 kg for 21–27 December.')}</p><a href="#cabinet-forecast">${t('პროგნოზის ნახვა →','View forecast →')}</a></div></div>
+    <div class="insight"><span class="ii" style="background:#fff0e6">🏷️</span><div><b>${t(`პომიდვრის ფასი: ${fmt(tp.p)} → ${fmt(recPrice(1))} ₾`,`Tomato price: ${fmt(tp.p)} → ${fmt(recPrice(1))} ₾`)}</b><p>${t('მოთხოვნა იზრდება, შენს პარტიას კი დასკვნა აქვს.','Demand is rising and your lot has a lab report.')}</p><a href="#cabinet-pricing">${t('ფასის რეკომენდაცია →','Pricing advice →')}</a></div></div>
+    <div class="insight"><span class="ii" style="background:#fff4d6">🧪</span><div><b>${t('ტარხუნას ჯერ არ აქვს დასკვნა','Tarragon has no lab report yet')}</b><p>${t('ატვირთე და ბარათზე „შემოწმებული“ ნიშანი გამოჩნდება.','Upload one to get the Lab-tested badge on the listing.')}</p><a href="#cabinet-quality">${t('დოკუმენტის ატვირთვა →','Upload a document →')}</a></div></div>
+   </div>
+   <div class="panel"><h4>${t('ბოლო შეკვეთები','Latest orders')}<a href="#cabinet-sales" style="font-size:13px;color:var(--green)">${t('ყველა','All')}</a></h4>${ORD.slice(0,4).map(o=>`<div class="doc"><span class="di">🧾</span><div><b>${t(...o.b)}</b><small>#${o.n} · ${o.sum} ₾</small></div><span class="pill2 ${OST[o.st][2]}">${t(OST[o.st][0],OST[o.st][1])}</span></div>`).join('')}</div></div>
+  <div class="panel"><h4>${t('შემოსავალი და ხარჯი, 12 თვე','Income and expenses, 12 months')}<span class="legend"><span><i style="background:#2a78d6"></i>${t('შემოსავალი','Income')}</span><span><i style="background:#eb6834"></i>${t('ხარჯი','Expenses')}</span></span></h4><div class="chart" id="ovChart"></div></div>`;
+}
+function vSales(){
+  return head(t('გაყიდვები','Sales'),t('შენი განცხადებები და შეკვეთები. მყიდველები პირდაპირ შენგან ყიდულობენ.','Your listings and orders. Buyers purchase directly from you.'),`<button class="btn2 g" onclick="openListing()">＋ ${t('ახალი განცხადება','New listing')}</button>`)+
+  `<div class="panel" style="margin-bottom:16px"><h4>${t('შეკვეთები','Orders')}<small>${t('შეცვალე სტატუსი, მყიდველი შეტყობინებას მიიღებს','Update the status and the buyer is notified')}</small></h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th>${t('მყიდველი','Buyer')}</th><th>${t('პროდუქცია','Items')}</th><th class="r">${t('თანხა','Total')}</th><th>${t('სტატუსი','Status')}</th><th></th></tr></thead><tbody>
+   ${ORD.map((o,k)=>`<tr><td class="n">${o.n}</td><td>${t(...o.b)}<small>${t(...o.d)}</small></td><td>${t(...o.i)}</td><td class="r n">${o.sum.toFixed(2)} ₾</td><td><span class="pill2 ${OST[o.st][2]}">${t(OST[o.st][0],OST[o.st][1])}</span></td><td class="r">${o.st<3?`<button class="btn2 o sm" onclick="advance(${k})">${t(...OBTN[o.st])}</button>`:''}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="panel"><h4>${t('ჩემი განცხადებები','My listings')}<small>${t('ფასი და მარაგი შეგიძლია აქვე შეცვალო','Edit price and stock right here')}</small></h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('პროდუქტი','Product')}</th><th>${t('ფასი, ₾','Price, ₾')}</th><th>${t('მარაგი','Stock')}</th><th>${t('ლაბორატორია','Lab')}</th><th class="r">${t('AI ფასი','AI price')}</th></tr></thead><tbody>
+   ${myP().map(p=>`<tr><td><b style="font-weight:600">${p.e} ${nm(p)}</b><small>${t('ნახვები','Views')}: ${120+p.id*13} · <a href="#market" onclick="setTimeout(()=>quick(${p.id}),60)" style="color:var(--green)">${t('ნახვა მარკეტში','View in market')}</a></small></td>
+    <td><input class="inp n" style="width:96px;height:36px" type="number" step="0.05" value="${p.p.toFixed(2)}" onchange="setPrice(${p.id},this.value)"> <small>/ ${un(p)}</small></td>
+    <td><input class="inp n" style="width:96px;height:36px" type="number" value="${p.stock}" onchange="P.find(x=>x.id===${p.id}).stock=+this.value;toast(t('მარაგი განახლდა','Stock updated'))"></td>
+    <td>${p.lab?`<span class="pill2 st-ok">✓ ${t('შემოწმებული','Tested')}</span>`:`<a href="#cabinet-quality" class="pill2 st-rev">${t('ატვირთე დასკვნა','Upload report')}</a>`}</td>
+    <td class="r">${PR[p.id]?`<a href="#cabinet-pricing" onclick="prP=${p.id};prPrice=null" class="n" style="color:var(--green);font-weight:600">${fmt(recPrice(p.id))} ₾ →</a>`:'—'}</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+function vQuality(){
+  const opts=myP().map(p=>`<option value="${p.id}">${nm(p)}</option>`).join('');
+  return head(t('ხარისხის ციფრული დადასტურება','Digital quality verification'),t('ატვირთე სერტიფიკატი ან ლაბორატორიული დასკვნა. დამოუკიდებელი ექსპერტი გადაამოწმებს და განცხადებას ნიშანი დაემატება.','Upload a certificate or lab report. An independent reviewer checks it and the listing gets a badge.'))+
+  `<div class="steps3"><div><span class="sn">1</span><p><b>${t('ატვირთვა','Upload')}</b><span>${t('PDF ან ფოტო, ლაბორატორიის ბეჭდით','PDF or photo with the lab stamp')}</span></p></div><div><span class="sn">2</span><p><b>${t('დამოუკიდებელი შემოწმება','Independent check')}</b><span>${t('ექსპერტი ადარებს ლაბორატორიის რეესტრს, 24 სთ-მდე','A reviewer checks it against the lab register, up to 24 h')}</span></p></div><div><span class="sn">3</span><p><b>${t('ნიშანი განცხადებაზე','Badge on the listing')}</b><span>${t('მყიდველი ხედავს „✓ შემოწმებული“','Buyers see “✓ Lab-tested”')}</span></p></div></div>
+  <div class="two-col even"><div class="panel"><h4>${t('ახალი დოკუმენტი','New document')}</h4>
+    <form id="docForm"><label class="drop" id="drop"><input type="file" id="docFile" accept=".pdf,.jpg,.jpeg,.png" hidden><div style="font-size:30px">📄</div><b>${t('ჩააგდე ფაილი ან დააჭირე ასარჩევად','Drop a file or click to choose')}</b>${t('PDF, JPG ან PNG, 10 მბ-მდე','PDF, JPG or PNG, up to 10 MB')}<div class="fn" id="fn"></div></label>
+     <div class="fgrid"><div><label>${t('დოკუმენტის ტიპი','Document type')}</label><select id="docType"><option value="lab">${t('ლაბორატორიული დასკვნა','Lab report')}</option><option value="org">${t('ორგანული სერტიფიკატი','Organic certificate')}</option><option value="gap">${t('GlobalG.A.P. / სხვა','GlobalG.A.P. / other')}</option></select></div><div><label>${t('პროდუქტი','Product')}</label><select id="docProd">${opts}</select></div></div>
+     <button class="btn2 g" style="width:100%">${t('გადამოწმებაზე გაგზავნა','Send for verification')}</button></form></div>
+   <div class="panel"><h4>${t('ჩემი დოკუმენტები','My documents')}<small>${DOCS.filter(d=>d.st==='ok').length}/${DOCS.length} ${t('დადასტურებული','verified')}</small></h4><div id="docList">${docList()}</div></div></div>`;
+}
+const docList=()=>DOCS.slice().reverse().map(d=>`<div class="doc"><span class="di"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg></span><div><b>${t(...d.n)}</b><small>${t(...d.m)} · ${d.f}</small></div><span class="pill2 ${d.st==='ok'?'st-ok':'st-rev'}">${d.st==='ok'?'✓ '+t(...d.v):`<span class="spin"></span> ${t('მოწმდება','Under review')}`}</span></div>`).join('');
+function vAssistant(){
+  return head(t('AI აგროასისტენტი','AI agro assistant'),t('რჩევები შენი კულტურების, ნიადაგის და ყვარელის ამინდის მიხედვით.','Advice based on your crops, soil and the Kvareli weather.'))+
+  `<div class="asst"><div class="achat"><div class="achat-h"><b>${t('ასისტენტი','Assistant')} <span class="ai-tag">AI</span></b><small style="color:var(--muted)">${t('დემო ვერსია','Demo version')}</small></div><div class="achat-b" id="aBody"></div>
+    <div class="sugg">${AIS.map(s=>`<button type="button" onclick="aAsk('${t(s[0],s[1]).replace(/'/g,"\\'")}')">${t(s[0],s[1])}</button>`).join('')}</div>
+    <form id="aForm"><input class="inp" id="aIn" autocomplete="off" placeholder="${t('დაწერე კითხვა მეურნეობაზე…','Ask about your farm…')}"><button class="btn2 g">${t('გაგზავნა','Send')}</button></form></div>
+   <div class="stack"><div class="panel"><h4>${t('ამინდი · ყვარელი','Weather · Kvareli')}</h4><div class="wx">${WX.map(w=>`<div class="${w[4]<0?'al':''}">${t(w[0],w[1])}<span class="e">${w[2]}</span><b>${w[3]}°</b> <small>${w[4]}°</small></div>`).join('')}</div></div>
+    <div class="panel"><h4>${t('დღის საქმეები','Today’s tasks')}</h4><div class="todo">${[['სათბურის განიავება 12:00–15:00','Ventilate the greenhouse 12:00–15:00'],['წიწაკისთვის აგროტექსტილის მომზადება','Prepare fleece for the peppers'],['B რიგის შემოწმება სიდამპლეზე','Check row B for mould'],['შეკვეთა #1048-ის შეფუთვა','Pack order #1048']].map(x=>`<label><input type="checkbox"><span>${t(...x)}</span></label>`).join('')}</div></div>
+    <div class="panel"><h4>${t('ფერმის მონაცემები','Farm data')}</h4><div class="ctx"><div><span>${t('სათბური','Greenhouse')}</span><span>${t('პომიდორი, 0.4 ჰა','Tomatoes, 0.4 ha')}</span></div><div><span>${t('ღია გრუნტი','Open field')}</span><span>${t('წიწაკა, 1.2 ჰა','Peppers, 1.2 ha')}</span></div><div><span>${t('მწვანილი','Herbs')}</span><span>${t('ტარხუნა, 0.3 ჰა','Tarragon, 0.3 ha')}</span></div><div><span>${t('ნიადაგი','Soil')}</span><span>pH 6.8 · ${t('თიხნარი','loam')}</span></div><div><span>${t('ტენიანობა','Humidity')}</span><span style="color:var(--red)">87%</span></div></div></div></div></div>`;
+}
+function vForecast(){
+  const p=P.find(x=>x.id===fcP),d=FC[fcP],u=t(...U[d.u]),sumF=d.f.reduce((a,b)=>a+b,0),sumH=d.h.slice(-8).reduce((a,b)=>a+b,0),pk=d.f.indexOf(Math.max(...d.f));
+  return head(t('AI მოთხოვნის პროგნოზი','AI demand forecast'),t('გაყიდვების ისტორია, სეზონურობა და ბაზრის მონაცემები, მომდევნო 8 კვირა.','Sales history, seasonality and market data, for the next 8 weeks.'),`<div class="seg">${Object.keys(FC).map(id=>`<button class="${+id===fcP?'on':''}" onclick="fcP=${id};renderCab()">${nm(P.find(x=>x.id===+id))}</button>`).join('')}</div>`)+
+  `<div class="kpis"><div class="kpi"><span>${t('პროგნოზი, 8 კვირა','Forecast, 8 weeks')}</span><b>${sumF.toLocaleString('en-US')} ${u}</b><small class="${sumF>=sumH?'up':'dn'}">${sumF>=sumH?'+':''}${Math.round((sumF/sumH-1)*100)}% ${t('წინა 8 კვირასთან','vs previous 8 weeks')}</small></div>
+   <div class="kpi"><span>${t('პიკური კვირა','Peak week')}</span><b>${WEEKS[12+pk]}</b><small>~${d.f[pk]} ${u}</small></div>
+   <div class="kpi"><span>${t('ახლანდელი მარაგი','Current stock')}</span><b>${p.stock} ${u}</b><small>${t(`${Math.round(p.stock/(sumF/8)*7)} დღის მარაგი`,`${Math.round(p.stock/(sumF/8)*7)} days of supply`)}</small></div>
+   <div class="kpi"><span>${t('სიზუსტე','Accuracy')}</span><b>±${fcP===19?14:11}%</b><small>${t('ბოლო 12 კვირაზე','over the last 12 weeks')}</small></div></div>
+  <div class="panel" style="margin-bottom:16px"><h4>${t('კვირის გაყიდვები','Weekly sales')}, ${u}<span class="legend"><span><i class="ln" style="background:#18803f"></i>${t('ფაქტობრივი','Actual')}</span><span><i class="dash" style="border-color:#18803f"></i>${t('პროგნოზი','Forecast')}</span><span><i class="band" style="background:rgba(24,128,63,.15)"></i>${t('სავარაუდო დიაპაზონი','Likely range')}</span></span></h4><div class="chart" id="fcChart"></div></div>
+  <div class="two-col even"><div class="panel"><h4>${t('რა განაპირობებს პროგნოზს','What drives the forecast')}</h4><div class="drivers">${d.dr.map(x=>`<div><span>${x[0]}</span><p><b>${t(x[1],x[2])}</b><br>${t(x[3],x[4])}</p></div>`).join('')}</div></div>
+   <div class="panel"><h4>${t('რეკომენდაცია','Recommendation')}<span class="ai-tag">AI</span></h4><div class="rec-box"><b>${nm(p)}</b>${t(...d.rec)}</div><div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><a href="#cabinet-pricing" class="btn2 o" onclick="prP=${fcP};prPrice=null">${t('ფასის რეკომენდაცია','Pricing advice')} →</a></div></div></div>`;
+}
+function vPricing(){
+  const p=P.find(x=>x.id===prP),d=PR[prP],rec=recPrice(prP),cur=prPrice??p.p,e=1.8,vol=x=>d.vol*Math.pow(x/rec,-e),opt=d.cost*e/(e-1);
+  const prem=(p.lab||p.org)?.05:0,u=un(p);
+  return head(t('AI ფასის რეკომენდაცია','AI pricing advice'),t('კონკურენტული ფასი მოთხოვნის, სეზონურობის და შენი ხარჯების გათვალისწინებით.','A competitive price based on demand, season and your own costs.'),`<div class="seg">${Object.keys(PR).map(id=>`<button class="${+id===prP?'on':''}" onclick="prP=${id};prPrice=null;renderCab()">${nm(P.find(x=>x.id===+id))}</button>`).join('')}</div>`)+
+  `<div class="price-hero"><div><span>${t('შენი ფასი ახლა','Your current price')}</span><b>${fmt(p.p)} ₾</b><small>/ ${u}</small></div><div><span>${t('ბაზრის საშუალო','Market average')}</span><b>${fmt(d.mkt)} ₾</b><small>${t('ბოლო 7 დღის გარიგებები','last 7 days of trades')}</small></div><div class="rec"><span>${t('რეკომენდებული ფასი','Recommended price')} <span class="ai-tag">AI</span></span><b>${fmt(rec)} ₾</b><small>${t('დიაპაზონი','Range')} ${fmt(rec*.95)}–${fmt(rec*1.05)} ₾</small></div></div>
+  <div class="two-col"><div class="panel"><h4>${t('სცადე სხვა ფასი','Try another price')}<small>${t('მოგება კვირაში, ₾','Profit per week, ₾')}</small></h4>
+    <div class="slider-row"><input type="range" id="prRange" min="${(d.mkt*.7).toFixed(2)}" max="${(d.mkt*1.4).toFixed(2)}" step="0.05" value="${cur}"><b id="prVal">${fmt(cur)} ₾</b></div>
+    <div class="chart" id="prChart"></div>
+    <div class="sim"><div><span>${t('სავარაუდო გაყიდვა','Expected sales')}</span><b id="sV">${Math.round(vol(cur))} ${u}</b></div><div><span>${t('შემოსავალი კვირაში','Weekly revenue')}</span><b id="sR">${Math.round(cur*vol(cur))} ₾</b></div><div><span>${t('მოგება კვირაში','Weekly profit')}</span><b id="sP">${Math.round((cur-d.cost)*vol(cur))} ₾</b></div></div>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn2 g" onclick="setPrice(${prP},$('prRange').value)">${t('ამ ფასის დაყენება','Apply this price')}</button><button class="btn2 o" onclick="prPrice=${rec};renderCab()">${t('რეკომენდებულზე დაბრუნება','Reset to recommended')}</button></div></div>
+   <div class="stack"><div class="panel"><h4>${t('როგორ დაითვალა','How it was calculated')}</h4><div class="factors">
+     <div><span>${t('ბაზრის საშუალო ფასი','Market average price')}</span><span class="n">${fmt(d.mkt)} ₾</span></div>
+     <div><span>${t('მოთხოვნის ტენდენცია','Demand trend')} (${d.trend>0?'+':''}${d.trend}%)</span><span class="n ${d.trend>=0?'pos':'neg'}">${d.trend>=0?'+':'−'}${fmt(Math.abs(d.mkt*d.trend*.25/100))} ₾</span></div>
+     <div><span>${t('ხარისხის პრემია (ლაბ./ორგანული)','Quality premium (lab/organic)')}</span><span class="n pos">+${fmt(d.mkt*prem)} ₾</span></div>
+     <div><span>${t('შენი თვითღირებულება','Your unit cost')}</span><span class="n">${fmt(d.cost)} ₾</span></div>
+     <div><span>${t('მინიმალური ფასი (+30%)','Floor price (+30%)')}</span><span class="n">${fmt(d.cost*1.3)} ₾</span></div>
+     <div><span><b>${t('მაქსიმალური მოგების ფასი','Profit-maximising price')}</b></span><span class="n">${fmt(opt)} ₾</span></div></div></div>
+    <div class="panel"><h4>${t('კონკურენტები','Competitors')}</h4><div class="comp">${d.comp.map(c=>`<div><span>${t(c[0],c[1])}</span><span class="n">${fmt(c[2])} ₾</span></div>`).join('')}</div></div></div></div>`;
+}
+function vFinance(){
+  const y=yr(),tot=y.exp,catAmt=ECAT.map(c=>[c,Math.round(tot*c[3])]),mx=Math.max(...catAmt.map(c=>c[1]));
+  return head(t('შემოსავლებისა და ხარჯების ანალიტიკა','Income and cost analytics'),t('დეკემბერი 2025 – ნოემბერი 2026','December 2025 – November 2026'),`<button class="btn2 g" onclick="openTx()">＋ ${t('ჩანაწერის დამატება','Add entry')}</button>`)+
+  `<div class="kpis"><div class="kpi"><span>${t('შემოსავალი','Income')}</span><b>${y.inc.toLocaleString('en-US')} ₾</b><small class="up">+18% ${t('შარშანდელთან','vs last year')}</small></div><div class="kpi"><span>${t('ხარჯი','Expenses')}</span><b>${y.exp.toLocaleString('en-US')} ₾</b><small class="dn">+9% ${t('შარშანდელთან','vs last year')}</small></div><div class="kpi"><span>${t('წმინდა მოგება','Net profit')}</span><b>${(y.inc-y.exp).toLocaleString('en-US')} ₾</b><small>${t('ხარჯების გამოკლებით','after expenses')}</small></div><div class="kpi"><span>${t('მოგების მარჟა','Profit margin')}</span><b>${Math.round((y.inc-y.exp)/y.inc*100)}%</b><small>${t('რეგიონის საშუალო 31%','Regional average 31%')}</small></div></div>
+  <div class="panel" style="margin-bottom:16px"><h4>${t('შემოსავალი და ხარჯი თვეების მიხედვით','Income and expenses by month')}, ₾<span class="legend"><span><i style="background:#2a78d6"></i>${t('შემოსავალი','Income')}</span><span><i style="background:#eb6834"></i>${t('ხარჯი','Expenses')}</span></span></h4><div class="chart" id="finChart"></div></div>
+  <div class="two-col even"><div class="panel"><h4>${t('ხარჯები კატეგორიების მიხედვით','Expenses by category')}</h4><div class="hbars">${catAmt.sort((a,b)=>b[1]-a[1]).map(([c,a])=>`<div class="hb"><span>${t(c[1],c[2])}</span><span class="tr"><i style="width:${a/mx*100}%"></i></span><span class="v">${a.toLocaleString('en-US')} ₾<small>${Math.round(c[3]*100)}%</small></span></div>`).join('')}</div></div>
+   <div class="panel"><h4>${t('ხარჯების ოპტიმიზაცია','Cost optimisation')}<span class="ai-tag">AI</span></h4>
+    <div class="insight"><span class="ii">🚚</span><div><b>${t('ტრანსპორტი: ~120 ₾ დაზოგვა თვეში','Transport: save ~120 ₾ a month')}</b><p>${t('თბილისის შეკვეთები კვირაში ორ დღეზე გააერთიანე (სამშაბათი, პარასკევი). ახლა საშუალოდ 4 რეისი გაქვს.','Group Tbilisi orders into two delivery days (Tuesday, Friday). You currently average 4 trips.')}</p></div></div>
+    <div class="insight"><span class="ii">🧴</span><div><b>${t('სასუქი შარშანდელზე 14%-ით ძვირია','Fertiliser costs are up 14%')}</b><p>${t('ყვარელის კოოპერატივი საბითუმო შესყიდვას აწყობს, ერთად ყიდვით 8–10% დაზოგავ.','The Kvareli co-op is organising a bulk purchase. Buying together saves 8–10%.')}</p></div></div>
+    <div class="insight"><span class="ii">🏦</span><div><b>${t('გაზაფხულის რეზერვი','Spring reserve')}</b><p>${t('იანვარ-მარტში შემოსავალი ხარჯს ძლივს ფარავს. თესვისთვის ახლავე გადადე ~2,500 ₾.','January to March income barely covers costs. Set aside ~2,500 ₾ for planting now.')}</p></div></div></div></div>
+  <div class="panel"><h4>${t('ბოლო ჩანაწერები','Recent entries')}</h4><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('თარიღი','Date')}</th><th>${t('აღწერა','Description')}</th><th>${t('კატეგორია','Category')}</th><th class="r">${t('თანხა','Amount')}</th></tr></thead><tbody>
+   ${TX.map(x=>`<tr><td class="n">${x.d}</td><td>${t(...x.n)}</td><td>${catName(x.c)}</td><td class="r n" style="color:${x.in?'var(--green-d)':'var(--ink)'};font-weight:600">${x.in?'+':'−'}${x.a.toFixed(2)} ₾</td></tr>`).join('')}</tbody></table></div></div>`;
+}
+
+function renderCab(){
+  const V={overview:vOverview,sales:vSales,quality:vQuality,assistant:vAssistant,forecast:vForecast,pricing:vPricing,finance:vFinance};
+  $('view-cabinet').innerHTML=cabShell((V[cabTab]||vOverview)());
+  if(cabTab==='overview')financeChart($('ovChart'));
+  if(cabTab==='finance')financeChart($('finChart'));
+  if(cabTab==='forecast')forecastChart($('fcChart'),FC[fcP]);
+  if(cabTab==='pricing')wirePricing();
+  if(cabTab==='quality')wireQuality();
+  if(cabTab==='assistant')wireAssistant();
+}
+function wirePricing(){
+  const p=P.find(x=>x.id===prP),d=PR[prP],rec=recPrice(prP),e=1.8,vol=x=>d.vol*Math.pow(x/rec,-e),u=un(p);
+  const upd=v=>{v=+v;$('prVal').textContent=fmt(v)+' ₾';$('sV').textContent=Math.round(vol(v))+' '+u;$('sR').textContent=Math.round(v*vol(v))+' ₾';$('sP').textContent=Math.round((v-d.cost)*vol(v))+' ₾';profitChart($('prChart'),d,rec,v)};
+  upd($('prRange').value);$('prRange').addEventListener('input',e=>{prPrice=+e.target.value;upd(e.target.value)});
+}
+function setPrice(id,v){const p=P.find(x=>x.id===id);p.p=Math.round(+v*100)/100;prPrice=null;toast(t(`ფასი განახლდა: ${nm(p)} · ${fmt(p.p)} ₾`,`Price updated: ${nm(p)} · ${fmt(p.p)} ₾`));renderDeals();renderGrid();renderCab()}
+function advance(k){const o=ORD[k];o.st++;toast(t(`შეკვეთა #${o.n}: ${OST[o.st][0]}. მყიდველს შეტყობინება გაეგზავნა.`,`Order #${o.n}: ${OST[o.st][1]}. The buyer was notified.`));renderCab()}
+function wireQuality(){
+  const f=$('docFile'),drop=$('drop');let file=null;
+  const pick=fl=>{if(!fl)return;file=fl;$('fn').textContent='✓ '+fl.name};
+  f.addEventListener('change',()=>pick(f.files[0]));
+  ['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+  drop.addEventListener('drop',e=>pick(e.dataTransfer.files[0]));
+  $('docForm').addEventListener('submit',e=>{e.preventDefault();
+    if(!file){toast(t('ჯერ ფაილი აირჩიე','Choose a file first'));return}
+    const pid=+$('docProd').value,p=P.find(x=>x.id===pid),ty=$('docType').value,no='AT-2026-'+(1210+DOCS.length);
+    const nmT=ty==='lab'?['ლაბორატორიული დასკვნა · '+p.ka,'Lab report · '+p.en]:ty==='org'?['ორგანული სერტიფიკატი · '+p.ka,'Organic certificate · '+p.en]:['სერტიფიკატი · '+p.ka,'Certificate · '+p.en];
+    const doc={n:nmT,m:['№ '+no+' · 11.11.2026','No. '+no+' · 11.11.2026'],f:file.name,st:'review',v:['გადამოწმდა 11.11.2026','Verified 11.11.2026'],pid};
+    DOCS.push(doc);file=null;renderCab();toast(t('დოკუმენტი გადამოწმებაზე გაიგზავნა','Document sent for verification'));
+    setTimeout(()=>{doc.st='ok';if(ty==='lab'||ty==='org'){if(ty==='lab')p.lab=1;else p.org=1}renderDeals();renderGrid();if(!$('view-cabinet').hidden&&cabTab==='quality')$('docList').innerHTML=docList();
+      toast(t(`✓ დადასტურდა: ${p.ka}. ბარათზე ნიშანი გამოჩნდა.`,`✓ Verified: ${p.en}. The badge is now on the listing.`))},4000);
+  });
+}
+function wireAssistant(){
+  if(!chatLog)chatLog=[];
+  const greet=['ai',t(`გამარჯობა, ${uFirst()}! დღეს სათბურში ტენიანობა 87%-ია, ხუთშაბათ ღამით კი ყინვაა მოსალოდნელი. რით დაგეხმარო?`,`Hello, ${uFirst()}! Greenhouse humidity is 87% today, and frost is expected on Thursday night. How can I help?`),t('სათბურის სენსორი, პროგნოზი','Greenhouse sensor, forecast')];
+  const b=$('aBody');b.innerHTML=[greet,...chatLog].map(m=>`<div class="am ${m[0]}">${m[0]==='me'?esc(m[1]):m[1]}${m[2]?`<small>${t('წყარო','Source')}: ${m[2]}</small>`:''}</div>`).join('');b.scrollTop=b.scrollHeight;
+  $('aForm').addEventListener('submit',e=>{e.preventDefault();const q=$('aIn').value.trim();if(q){aAsk(q);$('aIn').value=''}});
+}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function aAsk(q){
+  chatLog.push(['me',q]);const b=$('aBody');b.insertAdjacentHTML('beforeend',`<div class="am me">${esc(q)}</div><div class="am ai" id="aTyping"><span class="typing"><i></i><i></i><i></i></span></div>`);b.scrollTop=b.scrollHeight;
+  const hit=AIA.find(a=>a[0].test(q));const ans=hit?[t(hit[1],hit[2]),t(hit[3],hit[4])]:[t('ამ კითხვაზე ზუსტი პასუხისთვის მეტი დეტალი მჭირდება: რომელ კულტურაზე ან ნაკვეთზეა საუბარი? შემიძლია დაგეხმარო ამინდზე, დაავადებებზე, მორწყვაზე, სასუქზე, მოსავალზე და ფასზე.','I need a bit more detail: which crop or plot is this about? I can help with weather, disease, irrigation, fertiliser, harvest timing and pricing.'),''];
+  setTimeout(()=>{chatLog.push(['ai',ans[0],ans[1]]);const ty=$('aTyping');if(ty){ty.removeAttribute('id');ty.innerHTML=ans[0]+(ans[1]?`<small>${t('წყარო','Source')}: ${ans[1]}</small>`:'');b.scrollTop=b.scrollHeight}},900);
+}
+function openListing(){
+  const cats=CATS.slice(1).map(c=>`<option value="${c[0]}">${t(c[2],c[3])}</option>`).join(''),units=Object.keys(U).map(k=>`<option value="${k}">${t(...U[k])}</option>`).join('');
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><form class="form" id="lf"><h3>${t('ახალი განცხადება','New listing')}</h3><p>${t('გამოქვეყნდება მარკეტში შენი პროფილით.','It will appear in the market under your profile.')}</p>
+   <label>${t('დასახელება','Name')}</label><input id="lfN" required placeholder="${t('მაგ. კიტრი, სათბურის','e.g. greenhouse cucumbers')}">
+   <div class="two"><div><label>${t('კატეგორია','Category')}</label><select id="lfC">${cats}</select></div><div><label>${t('ერთეული','Unit')}</label><select id="lfU">${units}</select></div></div>
+   <div class="two"><div><label>${t('ფასი, ₾','Price, ₾')}</label><input id="lfP" type="number" step="0.05" min="0.05" required></div><div><label>${t('მარაგი','Stock')}</label><input id="lfS" type="number" min="1" required></div></div>
+   <button class="primary">${t('გამოქვეყნება','Publish')}</button></form>`;
+  $('mbox').style.maxWidth='520px';$('modal').classList.add('on');shade.classList.add('on');
+  $('lf').addEventListener('submit',e=>{e.preventDefault();const name=$('lfN').value.trim(),c=$('lfC').value,em=CATS.find(x=>x[0]===c)[1];
+    P.push({id:100+P.length,c,e:em,bg:'#eef2ec',ka:name,en:name,p:+$('lfP').value,u:$('lfU').value,r:'kakheti',cka:'ყვარელი',cen:'Kvareli',s:ME,lab:0,stock:+$('lfS').value,d:0});
+    closeAll();renderDeals();renderGrid();renderRegions();if(!$('view-cabinet').hidden)renderCab();toast(t('განცხადება გამოქვეყნდა. ატვირთე დასკვნა, რომ „შემოწმებული“ ნიშანი მიიღოს.','Listing published. Upload a lab report to earn the Lab-tested badge.'))});
+}
+function openTx(){
+  const cats=ECAT.map(c=>`<option value="${c[0]}">${t(c[1],c[2])}</option>`).join('');
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><form class="form" id="tf"><h3>${t('ჩანაწერის დამატება','Add entry')}</h3><p>${t('შემოსავალი ან ხარჯი, ნოემბერი 2026.','Income or expense, November 2026.')}</p>
+   <div class="two"><div><label>${t('ტიპი','Type')}</label><select id="tfT"><option value="0">${t('ხარჯი','Expense')}</option><option value="1">${t('შემოსავალი','Income')}</option></select></div><div><label>${t('თანხა, ₾','Amount, ₾')}</label><input id="tfA" type="number" step="0.01" min="0.01" required></div></div>
+   <label>${t('კატეგორია','Category')}</label><select id="tfC">${cats}</select><label>${t('აღწერა','Description')}</label><input id="tfN" required>
+   <button class="primary">${t('შენახვა','Save')}</button></form>`;
+  $('mbox').style.maxWidth='520px';$('modal').classList.add('on');shade.classList.add('on');
+  $('tfT').addEventListener('change',e=>{$('tfC').disabled=e.target.value==='1'});
+  $('tf').addEventListener('submit',e=>{e.preventDefault();const inc=$('tfT').value==='1',a=+$('tfA').value,n=$('tfN').value.trim();
+    TX.unshift({d:'11.11',in:inc?1:0,c:inc?'sale':$('tfC').value,n:[n,n],a});inc?INC[11]+=Math.round(a):EXP[11]+=Math.round(a);closeAll();renderCab();toast(t('ჩანაწერი დაემატა','Entry added'))});
+}
+
+/* ---------- auth (demo: stored in this browser only) ---------- */
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let users=store.get('at-users',[]),me=store.get('at-session',null);
+const DEMO={id:'demo',name:'ნინო ბერიძე',nameEn:'Nino Beridze',login:'nino@agritrust.ge',role:'farmer',farm:'ნინო ბერიძის ბაღი',region:'kakheti',demo:1,orders:[]};
+async function hashPw(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('agritrust:'+s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=7;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return'x'+h}}
+const uName=()=>me?(lang==='en'&&me.nameEn?me.nameEn:me.name):'';
+const uFirst=()=>uName().split(' ')[0];
+const isFarmer=()=>me&&me.role==='farmer';
+const normLogin=s=>{s=s.trim().toLowerCase();const d=s.replace(/[\s()-]/g,'');if(/^(\+?995)?5\d{8}$/.test(d))return'+995'+d.slice(-9);return s};
+const validLogin=s=>/^\+9955\d{8}$/.test(s)||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+function saveSession(){store.set('at-session',me)}
+function saveUsers(){store.set('at-users',users)}
+
+function renderUser(){
+  const w=$('userWrap');
+  if(!me){w.innerHTML=`<button class="h-ic" onclick="openAuth('login')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.4-4 4.4-6 8-6s6.6 2 8 6"/></svg><small>${t('შესვლა','Log in')}</small></button>`;return}
+  const f=isFarmer();
+  w.innerHTML=`<button class="ubtn" onclick="event.stopPropagation();$('umenu').classList.toggle('on')" aria-haspopup="menu"><span class="ua">${initials(uName())}</span><span class="un">${uFirst()}</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+   <div class="umenu" id="umenu" role="menu" onclick="event.stopPropagation()"><div class="uh"><b>${uName()}</b><span>${me.login}</span><br><span class="role">${f?t('ფერმერი','Farmer'):t('მყიდველი','Buyer')}</span></div>
+    ${f?`<a href="#cabinet-overview" onclick="closeMenu()">📊 ${t('ჩემი კაბინეტი','My dashboard')}</a><a href="#cabinet-sales" onclick="closeMenu()">🧺 ${t('განცხადებები და შეკვეთები','Listings and orders')}</a>${me.demo?`<a href="#farm-0" onclick="closeMenu()">👤 ${t('საჯარო პროფილი','Public profile')}</a>`:''}`:''}
+    <button onclick="closeMenu();myOrders()">📦 ${t('ჩემი შესყიდვები','My purchases')}</button><button onclick="closeMenu();showFavs()">♡ ${t('რჩეულები','Saved items')}</button>
+    <button class="out" onclick="logout()">↩ ${t('გამოსვლა','Log out')}</button></div>`;
+}
+function closeMenu(){const m=$('umenu');if(m)m.classList.remove('on')}
+document.addEventListener('click',closeMenu);
+
+let authOpts={};
+function openAuth(mode='login',opts){if(opts)authOpts=opts;else if(!$('modal').classList.contains('on'))authOpts={};
+  const reg=mode==='register',role=authOpts.role||'buyer';
+  const regions=Object.keys(REG).map(k=>`<option value="${k}">${reg?t(...REG[k]):''}</option>`).join('');
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><div class="auth">
+   <div class="auth-logo"><span class="logo-m"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c0-4 3-6.5 7.5-6.5 0 4.5-3 6.5-7.5 6.5z"/><path d="M12 14c0-3-2.5-5.5-6.5-5.5 0 3.5 2.5 5.5 6.5 5.5z"/></svg></span><b style="font-family:Inter,sans-serif;font-size:20px;font-weight:700">Agri<i style="font-style:normal;color:var(--green)">Trust</i></b></div>
+   <div class="auth-tabs" role="tablist"><button type="button" class="${reg?'':'on'}" onclick="openAuth('login')">${t('შესვლა','Log in')}</button><button type="button" class="${reg?'on':''}" onclick="openAuth('register')">${t('რეგისტრაცია','Sign up')}</button></div>
+   ${authOpts.note?`<div class="note">${authOpts.note}</div>`:''}
+   ${reg?`<form id="authForm" novalidate>
+     <h3>${t('ანგარიშის შექმნა','Create an account')}</h3><p class="sub">${t('ერთი ანგარიშით იყიდი და გაყიდი.','One account to buy and to sell.')}</p>
+     <label>${t('ვინ ხარ?','Who are you?')}</label>
+     <div class="roles"><label><input type="radio" name="role" value="buyer" ${role==='buyer'?'checked':''} onchange="toggleFarm()"><span class="ri">🛒</span><b>${t('მყიდველი','Buyer')}</b><span>${t('ვყიდულობ ოჯახისთვის ან ბიზნესისთვის','Buying for my home or business')}</span></label>
+      <label><input type="radio" name="role" value="farmer" ${role==='farmer'?'checked':''} onchange="toggleFarm()"><span class="ri">🌱</span><b>${t('ფერმერი','Farmer')}</b><span>${t('ვყიდი ჩემს მოსავალს','Selling my own harvest')}</span></label></div>
+     <label for="aName">${t('სახელი და გვარი','Full name')}</label><input id="aName" autocomplete="name" required>
+     <label for="aLogin">${t('ტელეფონი ან ელფოსტა','Phone or email')}</label><input id="aLogin" autocomplete="username" placeholder="5XX XX XX XX" required>
+     <div id="farmFields" ${role==='farmer'?'':'hidden'}><label for="aFarm">${t('ფერმის სახელი','Farm name')}</label><input id="aFarm" placeholder="${t('მაგ. ბერიძეების ბაღი','e.g. Beridze garden')}"><label for="aReg">${t('რეგიონი','Region')}</label><select id="aReg">${regions}</select></div>
+     <label for="aPw">${t('პაროლი','Password')}</label><div class="pw"><input id="aPw" type="password" autocomplete="new-password" required><button type="button" onclick="togglePw()">${t('ჩვენება','Show')}</button></div><div class="hint">${t('მინიმუმ 8 სიმბოლო','At least 8 characters')}</div>
+     <label class="terms"><input type="checkbox" id="aTerms"><span>${t('ვეთანხმები წესებს და კონფიდენციალურობის პოლიტიკას','I agree to the Terms and the Privacy Policy')}</span></label>
+     <div class="err" id="aErr" role="alert"></div>
+     <button class="primary">${t('რეგისტრაცია','Create account')}</button></form>`
+   :`<form id="authForm" novalidate>
+     <h3>${t('კეთილი იყოს შენი დაბრუნება','Welcome back')}</h3><p class="sub">${t('შედი ანგარიშზე, რომ იყიდო ან მართო შენი ფერმა.','Log in to shop or manage your farm.')}</p>
+     <label for="aLogin">${t('ტელეფონი ან ელფოსტა','Phone or email')}</label><input id="aLogin" autocomplete="username" placeholder="5XX XX XX XX" required>
+     <label for="aPw">${t('პაროლი','Password')}</label><div class="pw"><input id="aPw" type="password" autocomplete="current-password" required><button type="button" onclick="togglePw()">${t('ჩვენება','Show')}</button></div>
+     <div class="row2"><label class="terms" style="margin:0"><input type="checkbox" checked><span>${t('დამიმახსოვრე','Remember me')}</span></label><a href="#" onclick="toast(t('პაროლის აღდგენის ბმული გამოგეგზავნება (დემო)','A reset link would be sent to you (demo)'));return false">${t('დაგავიწყდა პაროლი?','Forgot password?')}</a></div>
+     <div class="err" id="aErr" role="alert"></div>
+     <button class="primary">${t('შესვლა','Log in')}</button>
+     <div class="or">${t('ან','or')}</div>
+     <button type="button" class="demo-btn" onclick="demoLogin()">🌱 ${t('შედი დემო ფერმერის ანგარიშით','Try the demo farmer account')}</button></form>`}
+  </div>`;
+  $('mbox').style.maxWidth='460px';$('modal').classList.add('on');shade.classList.add('on');
+  $('authForm').addEventListener('submit',reg?doRegister:doLogin);
+  setTimeout(()=>{const f=$(reg?'aName':'aLogin');if(f)f.focus()},30);
+}
+function toggleFarm(){$('farmFields').hidden=document.querySelector('input[name=role]:checked').value!=='farmer'}
+function togglePw(){const i=$('aPw'),b=i.nextElementSibling;i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?t('ჩვენება','Show'):t('დამალვა','Hide')}
+const authErr=(m,id)=>{$('aErr').textContent=m;document.querySelectorAll('.auth input').forEach(i=>i.classList.remove('bad'));if(id)$(id).classList.add('bad')};
+async function doLogin(e){e.preventDefault();
+  const l=normLogin($('aLogin').value),pw=$('aPw').value;
+  if(!l)return authErr(t('შეიყვანე ტელეფონი ან ელფოსტა','Enter your phone or email'),'aLogin');
+  if(!pw)return authErr(t('შეიყვანე პაროლი','Enter your password'),'aPw');
+  if(l===DEMO.login&&pw==='demo1234')return signedIn({...DEMO});
+  const u=users.find(u=>u.login===l);
+  if(!u||u.ph!==await hashPw(pw))return authErr(t('ტელეფონი/ელფოსტა ან პაროლი არასწორია','Wrong phone/email or password'),'aPw');
+  const {ph,...pub}=u;signedIn(pub);
+}
+async function doRegister(e){e.preventDefault();
+  const role=document.querySelector('input[name=role]:checked').value,name=$('aName').value.trim(),l=normLogin($('aLogin').value),pw=$('aPw').value;
+  if(name.length<2)return authErr(t('შეიყვანე სახელი და გვარი','Enter your full name'),'aName');
+  if(!validLogin(l))return authErr(t('შეიყვანე სწორი ნომერი (5XX XX XX XX) ან ელფოსტა','Enter a valid number (5XX XX XX XX) or email'),'aLogin');
+  if(l===DEMO.login||users.some(u=>u.login===l))return authErr(t('ეს ნომერი/ელფოსტა უკვე რეგისტრირებულია. შედი ანგარიშზე.','This phone/email is already registered. Please log in.'),'aLogin');
+  if(role==='farmer'&&!$('aFarm').value.trim())return authErr(t('შეიყვანე ფერმის სახელი','Enter your farm name'),'aFarm');
+  if(pw.length<8)return authErr(t('პაროლი მინიმუმ 8 სიმბოლო უნდა იყოს','Password must be at least 8 characters'),'aPw');
+  if(!$('aTerms').checked)return authErr(t('დაეთანხმე წესებს','Please accept the terms'));
+  const u={id:'u'+Date.now(),name,login:l,role,farm:role==='farmer'?$('aFarm').value.trim():'',region:role==='farmer'?$('aReg').value:'',orders:[],ph:await hashPw(pw)};
+  users.push(u);saveUsers();const {ph,...pub}=u;signedIn(pub,true);
+}
+function demoLogin(){signedIn({...DEMO})}
+function signedIn(u,isNew){
+  me=u;saveSession();const after=authOpts.after;authOpts={};closeAll();renderUser();
+  toast(isNew?t(`ანგარიში შეიქმნა. კეთილი იყოს შენი მობრძანება, ${uFirst()}!`,`Account created. Welcome, ${uFirst()}!`):t(`გამარჯობა, ${uFirst()}!`,`Hello, ${uFirst()}!`));
+  if(after)after();else if(isFarmer())location.hash='cabinet-overview';
+  route(true);
+}
+function logout(){me=null;saveSession();renderUser();toast(t('გამოხვედი ანგარიშიდან','You have logged out'));if(location.hash.startsWith('#cabinet'))location.hash='market';else route(true)}
+function sellClick(){if(isFarmer())location.hash='cabinet-sales';else openAuth('register',{role:'farmer',note:me?t('შენ მყიდველის ანგარიშით ხარ შესული. გასაყიდად ფერმერის ანგარიში შექმენი.','You are logged in as a buyer. Create a farmer account to sell.'):t('გასაყიდად შექმენი უფასო ფერმერის ანგარიში.','Create a free farmer account to start selling.'),after:()=>location.hash='cabinet-sales'})}
+function myOrders(){
+  const o=me.orders||[];
+  $('mbox').innerHTML=`<button class="x" onclick="closeAll()" aria-label="Close">✕</button><div class="form" style="max-width:none"><h3>${t('ჩემი შესყიდვები','My purchases')}</h3>
+   ${o.length?`<table class="tbl" style="margin-top:12px"><thead><tr><th>#</th><th>${t('თარიღი','Date')}</th><th>${t('პროდუქცია','Items')}</th><th class="r">${t('თანხა','Total')}</th></tr></thead><tbody>${o.map(x=>`<tr><td class="n">${x.n}</td><td class="n">${x.d}</td><td>${x.items}</td><td class="r n">${fmt(x.sum)} ₾</td></tr>`).join('')}</tbody></table>`:`<p style="margin-top:10px">${t('ჯერ არაფერი გიყიდია. დაიწყე მარკეტიდან.','No purchases yet. Start in the market.')}</p>`}</div>`;
+  $('mbox').style.maxWidth='620px';$('modal').classList.add('on');shade.classList.add('on');
+}
+function cabGate(){
+  const buyer=me&&!isFarmer();
+  return `<div class="gate"><div class="gi">🌱</div><h2>${t('ფერმერის კაბინეტი','Farmer dashboard')}</h2>
+   <p>${buyer?t('შენ მყიდველის ანგარიშით ხარ შესული. კაბინეტი ფერმერებისთვისაა: შექმენი ფერმერის ანგარიში ან შედი დემო ანგარიშით.','You are logged in as a buyer. The dashboard is for farmers: create a farmer account or try the demo.'):t('მართე გაყიდვები, დაადასტურე ხარისხი და მიიღე AI რჩევები, პროგნოზები და ფინანსური ანალიტიკა ერთ სივრცეში.','Manage sales, verify quality and get AI advice, forecasts and financial analytics in one place.')}</p>
+   <div class="acts">${buyer?'':`<button class="btn2 g" onclick="openAuth('login',{after:()=>location.hash='cabinet-overview'})">${t('შესვლა','Log in')}</button>`}<button class="btn2 ${buyer?'g':'o'}" onclick="openAuth('register',{role:'farmer',after:()=>location.hash='cabinet-overview'})">${t('ფერმერად რეგისტრაცია','Sign up as a farmer')}</button><button class="btn2 o" onclick="demoLogin()">${t('დემო ანგარიში','Demo account')}</button></div>
+   <div class="feat">${[['🧺','პირდაპირი გაყიდვა','Direct sales','შეკვეთები გადამყიდველის გარეშე','Orders without middlemen'],['👤','ციფრული პროფილი','Digital profile','შენი ფერმა, პროდუქცია, შეფასებები','Your farm, produce and reviews'],['🛡️','ხარისხის დადასტურება','Quality checks','დასკვნების დამოუკიდებელი შემოწმება','Independent report verification'],['🤖','AI აგროასისტენტი','AI agro assistant','რჩევები შენი ფერმისთვის','Advice for your farm'],['📈','მოთხოვნის პროგნოზი','Demand forecast','რამდენს გაყიდი მომდევნო კვირებში','What you will sell in the coming weeks'],['💰','ფასი და ფინანსები','Pricing and finance','ფასის რჩევა, მოგება და ხარჯები','Price advice, profit and costs']].map(f=>`<div><span style="font-size:22px">${f[0]}</span><b>${t(f[1],f[2])}</b><span>${t(f[3],f[4])}</span></div>`).join('')}</div></div>`;
+}
+
+/* ---------------- router ---------------- */
+function route(keep){
+  const h=location.hash.slice(1),m=h.match(/^farm-(\d+)$/),c=h.match(/^cabinet(?:-([a-z]+))?$/);
+  $('view-market').hidden=!!(m||c);$('view-farm').hidden=!m;$('view-cabinet').hidden=!c;document.querySelector('.cats').hidden=!!c;
+  if(m&&S[+m[1]]){renderFarm(+m[1]);if(!keep)scrollTo(0,0)}
+  else if(c){if(!isFarmer()){$('view-cabinet').innerHTML=cabGate()}else{cabTab=c[1]||'overview';renderCab()}if(!keep)scrollTo(0,0)}
+  else if(!keep&&h&&document.getElementById(h))setTimeout(()=>document.getElementById(h).scrollIntoView(),0);
+}
+addEventListener('hashchange',route);
+let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(!$('view-cabinet').hidden&&['overview','finance','forecast','pricing'].includes(cabTab))renderCab()},200)});
+
+/* ---------- language ---------- */
+function setLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll('[data-en]').forEach(el=>{if(el.dataset.ka===undefined)el.dataset.ka=el.innerHTML;el.innerHTML=l==='en'?el.dataset.en:el.dataset.ka});
+  document.querySelectorAll('[data-en-ph]').forEach(el=>{if(el.dataset.kaPh===undefined)el.dataset.kaPh=el.placeholder;el.placeholder=l==='en'?el.dataset.enPh:el.dataset.kaPh});
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  document.title=t('AgriTrust — ფერმერული პროდუქციის მარკეტი','AgriTrust — Georgian farm produce marketplace');
+  renderCats();renderRegions();renderSort();renderDeals();renderGrid();renderSellers();
+  if($('drawer').classList.contains('on'))renderCart();
+  renderUser();route(true);
+  try{localStorage.setItem('agritrust-lang',l)}catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+let saved='ka';try{saved=localStorage.getItem('agritrust-lang')||'ka'}catch(e){}
+setLang(saved==='en'?'en':'ka');
+</script>
+</body>
+</html>
